@@ -88,8 +88,6 @@ export default function Page() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   // const [lastSentAt, setLastSentAt] = useState<number>(0);
   // Add formSubmitted state for success message after submit
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -736,7 +734,6 @@ export default function Page() {
                       e.preventDefault();
                       setError(null);
                       setSuccess(null);
-                      setSuccessMessage(null);
                       const form = e.target as HTMLFormElement;
                       const res = await fetch('/api/contact', {
                         method: 'POST',
