@@ -88,7 +88,7 @@ export default function Page() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  // const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   // const [lastSentAt, setLastSentAt] = useState<number>(0);
   // Add formSubmitted state for success message after submit
   const [formSubmitted, setFormSubmitted] = useState(false);
