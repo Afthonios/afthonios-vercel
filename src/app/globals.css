@@ -70,3 +70,10 @@ body {
     @apply bg-[#FFF4F2];
   }
 }
+
+@layer utilities {
+  input:-webkit-autofill {
+    @apply text-gray-800;
+    transition: background-color 9999s ease-in-out 0s;
+  }
+}
