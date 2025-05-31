@@ -88,8 +88,8 @@ export default function Page() {
   const [showContactForm, setShowContactForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [lastSentAt, setLastSentAt] = useState<number>(0);
+  // const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  // const [lastSentAt, setLastSentAt] = useState<number>(0);
   // Add formSubmitted state for success message after submit
   const [formSubmitted, setFormSubmitted] = useState(false);
   // const handleContactSuccess = (message: string) => {
@@ -898,71 +898,6 @@ function PourquoiCarouselA() {
   );
 }
 
-function PourquoiCarouselB() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
-    {
-      loop: true,
-      slides: { perView: 1 },
-      slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel);
-      },
-      created: (slider) => {
-        setInterval(() => {
-          slider.next();
-        }, 4000);
-      },
-    },
-    []
-  );
-
-  const slides = [
-    {
-      title: "Des contenus conçus par des coaches de terrain",
-      desc: "concrets, vivants, proches du réel.",
-    },
-    {
-      title: "Une approche transformative",
-      desc: "pensée pour activer des prises de conscience durables.",
-    },
-    {
-      title: "Un ton incarné, humain",
-      desc: "loin des avatars, des discours formatés ou impersonnels.",
-    },
-    {
-      title: "Des vidéos courtes, inspirantes et multiformats",
-      desc: "parfaites pour les parcours LMS, les séminaires ou l’auto-apprentissage.",
-    },
-  ];
-
-  return (
-    <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-lg">
-        <div ref={sliderRef} className="keen-slider h-[220px]">
-          <div className="keen-slider__slide border-l-4 border-gray-400 bg-white text-gray-800 p-8 rounded-xl flex flex-col justify-center items-start text-left h-full">
-            {slides.map((slide, idx) => (
-              <div key={idx}>
-                <h3 className="text-xl font-bold mb-2">{slide.title}</h3>
-                <p className="text-base">{slide.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="flex justify-center mt-4 space-x-2">
-        {slides.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => instanceRef.current?.moveToIdx(idx)}
-            className={`w-3 h-3 rounded-full ${
-              currentSlide === idx ? 'bg-[#C2410C]' : 'bg-gray-400'
-            }`}
-          ></button>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 // PuzzleItem component for puzzle section
 import React from 'react';
