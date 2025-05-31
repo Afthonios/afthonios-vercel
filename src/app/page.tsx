@@ -3,8 +3,9 @@ import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import { Virtual, Autoplay } from 'swiper/modules';
-import { useAnimation, motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import { motion } from 'framer-motion';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 const slides = [
@@ -82,7 +83,7 @@ const slides = [
   },
 ];
 
-export default function Home() {
+export default function Page() {
   // Contact form state for CTA
   const [showContactForm, setShowContactForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -91,11 +92,10 @@ export default function Home() {
   const [lastSentAt, setLastSentAt] = useState<number>(0);
   // Add formSubmitted state for success message after submit
   const [formSubmitted, setFormSubmitted] = useState(false);
-  // Success handler for legacy logic
-  const handleContactSuccess = (message: string) => {
-    setSuccessMessage(message);
-    setShowContactForm(false);
-  };
+  // const handleContactSuccess = (message: string) => {
+  //   setSuccessMessage(message);
+  //   setShowContactForm(false);
+  // };
   // Initialize AOS animation on mount (moved here)
   useEffect(() => {
     if (typeof window !== 'undefined' && AOS?.init) {
@@ -189,16 +189,11 @@ export default function Home() {
     </div>
 
       {/* Puzzle Format interactif et engageant Section */}
-      {/* Desktop/tablet: default block, mobile: responsive with extra spacing */}
-      {/* Portrait mobile (sm): add pt-48 to delay entry into viewport */}
       <section className="py-20 px-6 bg-white">
         {/* Desktop/tablet puzzle (hidden on mobile) */}
         <div className="hidden sm:block">
           <div className="max-w-screen-xl mx-auto text-center mb-12">
-            <h2
-              id="puzzle-title"
-              className="h2"
-            >
+            <h2 id="puzzle-title" className="h2">
               Un format interactif et engageant
             </h2>
             <h3 className="text-base text-gray-700 mb-6">
@@ -206,76 +201,12 @@ export default function Home() {
             </h3>
           </div>
           {/* Puzzle clustering animation */}
-          {(() => {
-            const [cluster, setCluster] = useState(false);
-
-            useEffect(() => {
-              const handleScroll = () => {
-                const scrollTriggerY = 900;
-                if (window.scrollY > scrollTriggerY) {
-                  setCluster(true);
-                } else {
-                  setCluster(false);
-                }
-              };
-              window.addEventListener('scroll', handleScroll);
-              // Run once on mount in case already scrolled
-              handleScroll();
-              return () => window.removeEventListener('scroll', handleScroll);
-            }, []);
-
-            return (
-              <motion.div
-                className="flex flex-col md:flex-row items-center justify-center"
-                animate={{}}
-                style={{ display: 'flex', gap: `${cluster ? 4 : 32}px` }}
-                transition={{ type: 'spring', stiffness: 50, damping: 14 }}
-              >
-                {[
-                  {
-                    file: "puzzle-video-expert.svg",
-                    label: "VIDÉO EXPERT DE COACH (3-10 MIN)",
-                    textColor: "text-[#C2410C]",    // deep orange
-                    rotation: "rotate-0"
-                  },
-                  {
-                    file: "puzzle-storytelling.svg",
-                    label: "VIDÉO/AUDIO EN MODE STORYTELLING (2-3 MIN)",
-                    textColor: "text-[#A63D00]",    // burnt orange
-                    rotation: "-rotate-90"
-                  },
-                  {
-                    file: "puzzle-quiz-fiches.svg",
-                    label: "QUIZ, FICHES PRATIQUES, AUTO-DIAGNOSTICS",
-                    textColor: "text-[#D35400]",    // bright orange
-                    rotation: "rotate-180"
-                  },
-                  {
-                    file: "puzzle-articles.svg",
-                    label: "ARTICLES, BONNES PRATIQUES, MÉMOS-COACHING",
-                    textColor: "text-[#DB642C]",    // tomato orange
-                    rotation: "rotate-90"
-                  },
-                  {
-                    file: "puzzle-bonus-ted.svg",
-                    label: "BONUS (TED TALKS, CITATIONS…)",
-                    textColor: "text-[#E74C3C]",    // vivid red-orange
-                    rotation: "rotate-0"
-                  },
-                ].map((item, index) => (
-                  <PuzzleItem key={index} item={item} index={index} cluster={cluster} />
-                ))}
-              </motion.div>
-            );
-          })()}
+          <PuzzleClusterSection />
         </div>
         {/* Mobile puzzle (sm: block, hidden above sm) with pt-28 */}
         <div className="block sm:hidden pt-28">
           <div className="max-w-screen-xl mx-auto text-center mb-12">
-            <h2
-              id="puzzle-title-mobile"
-              className="h2"
-            >
+            <h2 id="puzzle-title-mobile" className="h2">
               Un format interactif et engageant
             </h2>
             <h3 className="text-base text-gray-700 mb-6">
@@ -739,7 +670,7 @@ export default function Home() {
           </div>
           <p className="text-center text-gray-800 text-lg mt-4">
             Améliorez dès aujourd’hui votre regard sur les situations <br />
-            avec le module <span className="text-[#C2410C] font-semibold">« La pensée positive »</span>.
+            avec le module <span className="text-orange-700 font-semibold">« La pensée positive »</span>.
           </p>
           <div className="flex justify-center gap-6 mt-6 flex-wrap">
             <a
@@ -1035,6 +966,66 @@ function PourquoiCarouselB() {
 
 // PuzzleItem component for puzzle section
 import React from 'react';
+
+function PuzzleClusterSection() {
+  const [cluster, setCluster] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTriggerY = 900;
+      setCluster(window.scrollY > scrollTriggerY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const puzzleData = [
+    {
+      file: "puzzle-video-expert.svg",
+      label: "VIDÉO EXPERT DE COACH (3-10 MIN)",
+      textColor: "text-[#C2410C]",
+      rotation: "rotate-0"
+    },
+    {
+      file: "puzzle-storytelling.svg",
+      label: "VIDÉO/AUDIO EN MODE STORYTELLING (2-3 MIN)",
+      textColor: "text-[#A63D00]",
+      rotation: "-rotate-90"
+    },
+    {
+      file: "puzzle-quiz-fiches.svg",
+      label: "QUIZ, FICHES PRATIQUES, AUTO-DIAGNOSTICS",
+      textColor: "text-[#D35400]",
+      rotation: "rotate-180"
+    },
+    {
+      file: "puzzle-articles.svg",
+      label: "ARTICLES, BONNES PRATIQUES, MÉMOS-COACHING",
+      textColor: "text-[#DB642C]",
+      rotation: "rotate-90"
+    },
+    {
+      file: "puzzle-bonus-ted.svg",
+      label: "BONUS (TED TALKS, CITATIONS…)",
+      textColor: "text-[#E74C3C]",
+      rotation: "rotate-0"
+    },
+  ];
+  return (
+    <motion.div
+      className="flex flex-col md:flex-row items-center justify-center"
+      animate={{}}
+      style={{ display: 'flex', gap: `${cluster ? 4 : 32}px` }}
+      transition={{ type: 'spring', stiffness: 50, damping: 14 }}
+    >
+      {puzzleData.map((item, index) => (
+        <PuzzleItem key={index} item={item} index={index} cluster={cluster} />
+      ))}
+    </motion.div>
+  );
+}
+
 function PuzzleItem({
   item,
   index,
@@ -1186,7 +1177,3 @@ function PuzzleItem({
     </div>
   );
 }
-// (legacy handleSubmit removed; now handled inline in form)
-// --- AOS initialization is now handled in the Home component's useEffect ---
-import AOS from 'aos';
-import 'aos/dist/aos.css';
