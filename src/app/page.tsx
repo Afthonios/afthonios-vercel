@@ -262,7 +262,7 @@ export default function Page() {
               d’humanité, d’efficacité et d’intelligence relationnelle.
             </p>
             <p className="text-lg text-gray-700">
-              Nous proposons un <a href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf" className="underline text-primary" target="_blank" rel="noopener noreferrer">catalogue</a> riche de 250 modules SCORM, 350 vidéos, et <strong>des contenus prêts à l'emploi</strong> que
+              Nous proposons un <a href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf" className="underline text-primary" target="_blank" rel="noopener noreferrer">catalogue</a> riche de 250 modules SCORM, 350 vidéos, et <strong>des contenus prêts à l&apos;emploi</strong> que
               vos équipes peuvent intégrer immédiatement dans leur quotidien professionnel.
             </p>
           </div>
