@@ -27,6 +27,46 @@ body {
 
 @layer base {
   h2 {
-    @apply text-4xl font-bold text-gray-900 mb-6;
+    @apply text-3xl font-bold text-gray-900 mt-4 mb-6 font-[Georgia];
+  }
+
+  .btn {
+    @apply text-xl px-10 py-5 rounded-2xl font-semibold transition duration-300 shadow-md transform hover:scale-105 hover:shadow-lg;
+  }
+
+  .btn-primary {
+    @apply text-white px-10 py-5 rounded-2xl font-semibold transition duration-300 shadow-md transform hover:scale-105 hover:shadow-lg;
+    background-color: #E25E3E;
+  }
+
+  .btn-primary:hover {
+    background-color: #C94F32;
+  }
+
+  .btn-secondary {
+    @apply text-xl text-white px-10 py-5 rounded-2xl font-semibold transition duration-300 shadow-md transform hover:scale-105 hover:shadow-lg;
+    background-color: #6B7280; /* Tailwind's gray-500 */
+  }
+
+  .btn-secondary:hover {
+    background-color: #4B5563; /* Tailwind's gray-600 */
+  }
+
+  /* Note: Special buttons (e.g. “Access English”) and larger variants can be overridden in page.tsx with custom utility classes */
+
+  .bg-section-gray {
+    @apply bg-gray-50;
+  }
+
+  .bg-section-light {
+    @apply bg-gray-100;
+  }
+
+  .bg-section-medium {
+    @apply bg-gray-200;
+  }
+
+  .bg-section-soft-orange {
+    @apply bg-[#FFF4F2];
   }
 }

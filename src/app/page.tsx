@@ -83,33 +83,57 @@ const slides = [
 ];
 
 export default function Home() {
+  // Contact form state for CTA
+  const [showContactForm, setShowContactForm] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [lastSentAt, setLastSentAt] = useState<number>(0);
+  // Add formSubmitted state for success message after submit
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  // Success handler for legacy logic
+  const handleContactSuccess = (message: string) => {
+    setSuccessMessage(message);
+    setShowContactForm(false);
+  };
   return (
     <main className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-white">
         <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh]">
-          {/* Left: Hero Image */}
+          {/* Left: Hero Image with gradient overlay */}
           <div className="relative w-full h-[50vh] md:h-auto">
             <img
               src="https://res.cloudinary.com/djiqjc1ui/image/upload/f_auto,q_auto,w_auto,dpr_auto/v1748513079/Hero_Nouvelle_Offre_mnauqa.png"
               alt="Femme souriante"
-              className="absolute inset-0 w-full h-full object-cover object-top"
+              className="absolute inset-0 w-full h-full object-cover object-right-top sm:object-top"
             />
+            <div className="absolute inset-0 hidden md:block bg-[linear-gradient(to_right,_rgba(255,255,255,0)_50%,_rgba(255,255,255,1)_80%)]"></div>
           </div>
 
           {/* Right: Text */}
-          <div className="flex flex-col justify-center items-center text-center md:text-left px-6 py-12 md:px-12">
+          <div className="relative z-10 flex flex-col justify-center items-center text-center text-center px-4 py-12 md:px-8 lg:px-10 md:-ml-32 lg:-ml-64">
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
               Boostez vos équipes avec des modules Soft&nbsp;Skills prêts à l’emploi
             </h1>
             <p className="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
-              Offrez à vos équipes des ressources Soft Skills prêtes à l’emploi — plus humaines, plus vivantes, plus impactantes.<br />
+              Offrez à vos équipes des ressources Soft Skills prêtes à l’emploi<br />— plus humaines, plus vivantes, plus impactantes.<br />
               250&nbsp;modules SCORM & 350&nbsp;vidéos en cession définitive.<br />
               Aucun abonnement. Zéro contrainte.
             </p>
             <a
               href="#contact"
-              className="mt-4 bg-[#C2410C] hover:bg-[#a63109] text-white font-semibold py-3 px-6 rounded shadow transition"
+              className="btn btn-primary mt-4"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowContactForm(!showContactForm);
+                setTimeout(() => {
+                  const formElement = document.getElementById('contact-form');
+                  if (formElement) {
+                    formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                }, 100);
+              }}
             >
               Demandez une démo
             </a>
@@ -120,12 +144,12 @@ export default function Home() {
 {/* Notre nouvelle offre Afthonios Section */}
 <section className="py-16 px-6 bg-white">
   <div className="max-w-screen-xl mx-auto px-4">
-    <h2 className="text-4xl font-bold text-gray-900 text-center mb-6">Notre nouvelle offre Afthonios</h2>
+    <h2 className="h2 text-center">Notre nouvelle offre Afthonios</h2>
     <h3 className="text-lg font-semibold text-center text-gray-700 mb-2">
-      Offre à vos équipes de ressources
+      Développez les compétences humaines
     </h3>
     <p className="text-center text-gray-600 max-w-3xl mx-auto mb-12">
-      Afthonios vous propose une solution complète, concrète et flexible pour développer efficacement les compétences de vos équipes.
+      Afthonios vous propose une solution complète, concrète et flexible pour améliorer la performance et le bien-être de toutes vos équipes.
     </p>
     <div className="mx-6 md:mx-24">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
@@ -157,7 +181,7 @@ export default function Home() {
         <div className="max-w-screen-xl mx-auto text-center mb-12">
           <h2
             id="puzzle-title"
-            className="text-4xl font-bold text-gray-900 text-center mb-6"
+            className="h2"
           >
             Un format interactif et engageant
           </h2>
@@ -233,14 +257,14 @@ export default function Home() {
       <section className="py-20 px-6 bg-white">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left items-center md:items-start">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Pourquoi choisir Afthonios&nbsp;?</h2>
+            <h2 className="h2 text-left">Pourquoi choisir Afthonios&nbsp;?</h2>
             <p className="text-lg text-gray-700 mb-4">
-              Nos formations Soft Skills ont été conçues pour transformer les pratiques managériales avec plus
+              Nos formations Soft Skills ont été conçues pour <strong>transformer les pratiques collaboratives</strong> avec plus
               d’humanité, d’efficacité et d’intelligence relationnelle.
             </p>
             <p className="text-lg text-gray-700">
-              Nous proposons un catalogue riche de 250 modules SCORM, 350 vidéos, et des contenus prêts à l'emploi
-              que vos équipes peuvent intégrer immédiatement dans leur quotidien professionnel.
+              Nous proposons un <a href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf" className="underline text-primary" target="_blank" rel="noopener noreferrer">catalogue</a> riche de 250 modules SCORM, 350 vidéos, et <strong>des contenus prêts à l'emploi</strong> que
+              vos équipes peuvent intégrer immédiatement dans leur quotidien professionnel.
             </p>
           </div>
           <PourquoiCarouselA />
@@ -252,7 +276,7 @@ export default function Home() {
       {/* 8 Thématiques Section */}
       <section className="py-16 px-6 bg-gray-50">
         <div className="max-w-screen-xl mx-auto px-4">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-6">8 thématiques clés</h2>
+          <h2 className="h2 text-center">8 thématiques clés</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(() => {
               const links = [
@@ -307,7 +331,7 @@ export default function Home() {
             href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mb-10 bg-[#C2410C] hover:bg-[#a63109] text-white font-semibold py-3 px-8 rounded shadow transition"
+            className="btn btn-primary inline-block mb-10"
           >
             Voir le catalogue
           </a>
@@ -348,33 +372,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Ce que vous obtiendrez Section */}
+      {/* Ce que vous recevez Section */}
       <section className="py-16 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Ce que vous obtiendrez <br className="md:hidden" /> concrètement
-          </h2>
-
-          <div className="flex items-center justify-center mb-6 text-gray-800 font-semibold text-lg">
-            <span className="mr-2 text-2xl">📦</span> Ce que vous recevez
-          </div>
-
+        <div className="max-w-4xl mx-auto text-center pt-12 pb-20">
+          <h2 className="h2 text-center mb-6">Ce que vous obtiendrez concrètement</h2>
           <div className="bg-gray-50 shadow-lg rounded-xl p-8 text-left text-gray-900">
-            <ul className="list-disc pl-5 space-y-3 text-gray-800 text-[1.1rem] leading-relaxed">
-              <li>250 modules SCORM clés en main (quiz, ressources&nbsp;…)</li>
-              <li>350 micro-vidéos en français et anglais</li>
-              <li>Accès illimité, sans date de fin</li>
-              <li>Guide d’intégration et support léger si besoin</li>
-              <li>Droit de diffusion interne sur votre LMS</li>
+            <ul className="list-[square] pl-6 space-y-4 text-gray-800 text-[1.15rem] leading-relaxed marker:text-[#c2410c] marker:text-2xl text-left items-start mt-4">
+              <li>
+                <span className="text-[#c2410c] font-semibold">250 modules Scorm clés en main</span> (format zip intégrable dans tous les LMS)
+              </li>
+              <li>
+                <span className="text-[#c2410c] font-semibold">350 micro-vidéos Soft Skills</span> au format mp4 disponibles en français et anglais
+              </li>
+              <li>
+                Accès illimité aux contenus sur votre plateforme, <span className="text-[#c2410c] font-semibold">sans date de fin</span>
+              </li>
+              <li>
+                Matrice des données, <span className="text-[#c2410c] font-semibold">guide d’intégration</span> et support léger si besoin
+              </li>
+              <li>
+                Droit de diffusion en interne pour tous vos collaborateurs, <span className="text-[#c2410c] font-semibold">sur votre LMS</span>
+              </li>
+              <li className="flex items-start ml-1 gap-2 mt-6 pt-4 border-t border-gray-200 !list-none text-left">
+                <span className="inline-block w-7 h-7 text-[#c2410c] mr-3 min-w-[1.75rem] min-h-[1.75rem] flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2l4-4" />
+                  </svg>
+                </span>
+                <span>
+                  <span className="font-semibold text-[#c2410c]"><span className="whitespace-nowrap">Option supplémentaire :</span></span> remise de fichiers sources via Rise-Articulate
+                </span>
+              </li>
             </ul>
           </div>
+        </div>
+        {/* Contact CTA Button (now inside Ce que vous obtiendrez concrètement section) */}
+        <div className="w-full flex justify-center mt-2 mb-10">
+          <a
+            href="#contact"
+            className="btn btn-primary"
+            onClick={(e) => {
+              e.preventDefault();
+              setShowContactForm(!showContactForm);
+              setTimeout(() => {
+                const formElement = document.getElementById('contact-form');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }, 100);
+            }}
+          >
+            Contactez-nous pour en savoir plus
+          </a>
         </div>
       </section>
 
       {/* Témoignages Section */}
       <section className="py-12 px-6 bg-gray-50 mb-4">
         <div className="max-w-screen-xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Ils nous ont fait confiance</h2>
+          <h2 className="h2">Ils nous ont fait confiance</h2>
           <Swiper
             modules={[Autoplay]}
             autoplay={{ delay: 8000, disableOnInteraction: false }}
@@ -410,10 +466,9 @@ export default function Home() {
                 <div className="border-l-2 pl-6 border-gray-200">
                   <p className="italic text-lg text-gray-800 mb-4">
                     Depuis 5 ans, nous faisons appel à Afthonios pour son expertise et la qualité de ses contenus.
-                    Leur <strong>écoute proactive</strong> et leurs <strong>conseils avisés</strong> dans le choix des contenus nous sont précieux.
-                    Des <strong>contenus qualitatifs et explicites</strong> tant sur le fond que sur la forme.
-                    Un coup de cœur pour le tout nouveau format de vidéos, à mi-chemin entre le <strong>podcast et la vidéo</strong>.
-                    Avec Afthonios, je suis 100 % en confiance.
+                    Leur écoute proactive et leurs conseils avisés dans le choix des contenus nous sont précieux.
+                    Des <strong>contenus qualitatifs et explicites tant sur le fond que sur la forme</strong>.
+                    Un coup de cœur pour le tout nouveau format de vidéos, à mi-chemin entre le podcast et la vidéo. <strong>Avec Afthonios, je suis 100 % en confiance.</strong>
                   </p>
                   <p className="font-semibold text-gray-900">
                     — <span className="italic">Valérie Lantran, Responsable Formation, Air Liquide</span>
@@ -457,13 +512,74 @@ export default function Home() {
                 </div>
               </SwiperSlide>
             ))}
+            {/* Additional SVG logo slides */}
+            {/* 1. Safran Sagem */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748664059/safran-sagem_mmbn3i.svg"
+                  alt="Safran Sagem"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
+            {/* 2. Essilor (taller) */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748665021/essilor-logo_gqkcfe.svg"
+                  alt="Essilor"
+                  className="h-20 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
+            {/* 3. SUEZ */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748664061/suez-logo_i3556d.svg"
+                  alt="SUEZ"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
+            {/* 4. MAIF (taller) */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748664057/maif_o6ezy7.svg"
+                  alt="MAIF"
+                  className="h-20 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
+            {/* 5. SNCF */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748664055/sncf_mbdu0j.svg"
+                  alt="SNCF"
+                  className="h-16 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
+            {/* 6. SFR (taller) */}
+            <SwiperSlide>
+              <div className="w-full sm:w-48 h-24 sm:h-28 flex items-center justify-center bg-gray-50">
+                <img
+                  src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748664058/sfr_k87nob.svg"
+                  alt="SFR"
+                  className="h-20 w-auto object-contain"
+                />
+              </div>
+            </SwiperSlide>
           </Swiper>
         </div>
       </section>
       {/* Tarification Section */}
-      <section className="py-20 px-6 bg-rose-50">
+      <section className="py-20 px-6 bg-section-soft-orange">
         <div className="max-w-screen-xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Tarification simple et transparente</h2>
+          <h2 className="h2">Tarification simple et transparente</h2>
           <p className="text-lg font-semibold text-gray-800 mb-2">
             Des contenus premium à un tarif accessible, sans abonnement, sans renouvellement.
           </p>
@@ -513,7 +629,7 @@ export default function Home() {
       {/* Testez notre pédagogie Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-screen-xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 text-center mb-6">
+          <h2 className="h2 text-center">
             Testez gratuitement notre pédagogie
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg">
@@ -537,14 +653,14 @@ export default function Home() {
                   La pensée positive&nbsp;: <br />
                   changer de regard
                 </h3>
-                <a
-                  href="https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId2548&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
-                  className="bg-white text-[#C2410C] font-semibold px-4 py-1 rounded-full inline-block mt-6 w-fit hover:bg-gray-100 transition text-sm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  COMMENCER LE MODULE
-                </a>
+            <a
+              href="https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId2548&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
+              className="bg-white text-[#C2410C] font-semibold px-4 py-1 rounded-full inline-block mt-6 w-fit hover:bg-gray-100 transition text-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              COMMENCER LE MODULE
+            </a>
               </div>
             </div>
           </div>
@@ -555,7 +671,7 @@ export default function Home() {
           <div className="flex justify-center gap-6 mt-6 flex-wrap">
             <a
               href="https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId2548&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
-              className="bg-[#C2410C] hover:bg-[#a63109] text-white font-semibold py-3 px-6 rounded shadow transition"
+              className="btn btn-primary"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -563,7 +679,7 @@ export default function Home() {
             </a>
             <a
               href="https://afthonios.com/wp-content/uploads/uncanny-snc/669/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId4888&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/669/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
-              className="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-3 px-6 rounded shadow transition"
+              className="btn-secondary"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -574,16 +690,143 @@ export default function Home() {
       </section>
       <section className="py-20 px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">Prêt à démarrer&nbsp;?</h2>
+          <h2 className="h2">Prêt à démarrer&nbsp;?</h2>
           <p className="text-lg text-gray-700 mb-10">
             Contactez-nous pour une démonstration personnalisée ou pour échanger sur vos besoins spécifiques.
           </p>
           <a
             href="#contact"
-            className="bg-[#C2410C] hover:bg-[#a63109] text-white font-semibold py-3 px-8 rounded-full inline-block transition shadow-md"
+            className="btn btn-primary transform transition duration-300 ease-in-out"
+            style={{ display: "inline-block", marginTop: "1rem" }}
+            onClick={(e) => {
+              e.preventDefault();
+              setShowContactForm(!showContactForm);
+              setTimeout(() => {
+                const formElement = document.getElementById('contact-form');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+              }, 100);
+            }}
           >
             Contactez-nous maintenant
           </a>
+          {showContactForm && (
+            <motion.div
+              id="contact-form"
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className="overflow-hidden bg-white rounded shadow-lg mt-6 p-6 border border-orange-300"
+            >
+              {formSubmitted ? (
+                <div className="text-orange-600 text-center flex items-center justify-center h-[120px]">
+                  Merci pour votre message&nbsp;! Nous vous répondrons dans les plus brefs délais.
+                </div>
+              ) : (
+                <>
+                  <form
+                    className="space-y-4 text-left"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      setError(null);
+                      setSuccess(null);
+                      setSuccessMessage(null);
+                      const form = e.target as HTMLFormElement;
+                      const res = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          prenom: form.prenom.value,
+                          nom: form.nom.value,
+                          email: form.email.value,
+                          organisation: form.organisation.value,
+                          message: form.message.value,
+                        }),
+                      });
+                      if (res.ok) {
+                        setFormSubmitted(true);
+                      } else {
+                        setError('Erreur lors de l’envoi du formulaire. Veuillez réessayer.');
+                      }
+                    }}
+                  >
+                    <div>
+                      <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+                      <input
+                        type="text"
+                        id="first-name"
+                        name="prenom"
+                        className="w-full border border-gray-300 rounded px-4 py-2"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="nom"
+                        className="w-full border border-gray-300 rounded px-4 py-2"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Adresse e-mail</label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="w-full border border-gray-300 rounded px-4 py-2"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-1">Organisation</label>
+                      <input
+                        type="text"
+                        id="organization"
+                        name="organisation"
+                        className="w-full border border-gray-300 rounded px-4 py-2"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        className="w-full border border-gray-300 rounded px-4 py-2"
+                        rows={4}
+                        required
+                      />
+                    </div>
+                    {error && (
+                      <div className="text-red-600 text-sm text-center">{error}</div>
+                    )}
+                    <div className="grid grid-cols-1 items-center justify-center text-center gap-2 mt-4">
+                      {/* Centered Envoyer button */}
+                      <div className="flex justify-center">
+                        <button type="submit" className="btn btn-primary">Envoyer</button>
+                      </div>
+                      {/* Contact info below */}
+                      <div className="flex justify-center items-center text-sm text-gray-800 font-semibold mt-4">
+                        <p className="text-center">
+                          ou écrivez-nous directement sur<br />
+                          <a href="mailto:connect@afthonios.com" className="underline text-[#C2410C] font-semibold">connect@afthonios.com</a>
+                        </p>
+                      </div>
+                    </div>
+                  </form>
+                  {success && (
+                    <p className="mt-4 text-center text-orange-700 font-semibold">
+                      {success}
+                    </p>
+                  )}
+                </>
+              )}
+            </motion.div>
+          )}
         </div>
       </section>
     </main>
@@ -595,7 +838,7 @@ function PourquoiCarouselA() {
 
   const slidesA = [
     {
-      title: "Des contenus conçus par des coaches de terrain",
+      title: "Des contenus conçus par des coachs de terrain",
       desc: "concrets, vivants, proches du réel.",
     },
     {
@@ -754,6 +997,7 @@ function PuzzleItem({
           alt={item.label}
           className={`w-full h-auto object-contain transform ${item.rotation}`}
           draggable={false}
+          style={{ opacity: 0.7 }}
         />
       </div>
       {/* Invisible spacer for items 1 and 3 */}
@@ -764,3 +1008,4 @@ function PuzzleItem({
     </motion.div>
   );
 }
+// (legacy handleSubmit removed; now handled inline in form)
