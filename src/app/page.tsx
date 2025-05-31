@@ -96,6 +96,18 @@ export default function Home() {
     setSuccessMessage(message);
     setShowContactForm(false);
   };
+  // Initialize AOS animation on mount (moved here)
+  useEffect(() => {
+    if (typeof window !== 'undefined' && AOS?.init) {
+      AOS.init({
+        offset: 300,
+        duration: 600,
+        easing: 'ease-out',
+        once: true,
+        mirror: false,
+      });
+    }
+  }, []);
   return (
     <main className="bg-gray-50">
       {/* Hero Section */}
@@ -106,7 +118,7 @@ export default function Home() {
             <img
               src="https://res.cloudinary.com/djiqjc1ui/image/upload/f_auto,q_auto,w_auto,dpr_auto/v1748513079/Hero_Nouvelle_Offre_mnauqa.png"
               alt="Femme souriante"
-              className="absolute inset-0 w-full h-full object-cover object-right-top sm:object-top"
+              className="absolute inset-0 w-full h-full object-cover object-[25%_top] sm:object-[25%_top]"
             />
             <div className="absolute inset-0 hidden md:block bg-[linear-gradient(to_right,_rgba(255,255,255,0)_50%,_rgba(255,255,255,1)_80%)]"></div>
           </div>
@@ -177,87 +189,143 @@ export default function Home() {
     </div>
 
       {/* Puzzle Format interactif et engageant Section */}
+      {/* Desktop/tablet: default block, mobile: responsive with extra spacing */}
+      {/* Portrait mobile (sm): add pt-48 to delay entry into viewport */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-screen-xl mx-auto text-center mb-12">
-          <h2
-            id="puzzle-title"
-            className="h2"
-          >
-            Un format interactif et engageant
-          </h2>
-          <h3 className="text-base text-gray-700 mb-6">
-            Format court (20 min), idéal pour le micro-learning
-          </h3>
-        </div>
-        {/* Puzzle clustering animation */}
-        {(() => {
-          const [cluster, setCluster] = useState(false);
-
-          useEffect(() => {
-            const handleScroll = () => {
-              const scrollTriggerY = 900;
-              if (window.scrollY > scrollTriggerY) {
-                setCluster(true);
-              } else {
-                setCluster(false);
-              }
-            };
-            window.addEventListener('scroll', handleScroll);
-            // Run once on mount in case already scrolled
-            handleScroll();
-            return () => window.removeEventListener('scroll', handleScroll);
-          }, []);
-
-          return (
-            <motion.div
-              className="flex flex-col md:flex-row items-center justify-center"
-              animate={{}}
-              style={{ display: 'flex', gap: `${cluster ? 4 : 32}px` }}
-              transition={{ type: 'spring', stiffness: 50, damping: 14 }}
+        {/* Desktop/tablet puzzle (hidden on mobile) */}
+        <div className="hidden sm:block">
+          <div className="max-w-screen-xl mx-auto text-center mb-12">
+            <h2
+              id="puzzle-title"
+              className="h2"
             >
-              {[
-                {
-                  file: "puzzle-video-expert.svg",
-                  label: "VIDÉO EXPERT DE COACH (3-10 MIN)",
-                  textColor: "text-[#C2410C]",    // deep orange
-                  rotation: "rotate-0"
-                },
-                {
-                  file: "puzzle-storytelling.svg",
-                  label: "VIDÉO/AUDIO EN MODE STORYTELLING (2-3 MIN)",
-                  textColor: "text-[#A63D00]",    // burnt orange
-                  rotation: "-rotate-90"
-                },
-                {
-                  file: "puzzle-quiz-fiches.svg",
-                  label: "QUIZ, FICHES PRATIQUES, AUTO-DIAGNOSTICS",
-                  textColor: "text-[#D35400]",    // bright orange
-                  rotation: "rotate-180"
-                },
-                {
-                  file: "puzzle-articles.svg",
-                  label: "ARTICLES, BONNES PRATIQUES, MÉMOS-COACHING",
-                  textColor: "text-[#DB642C]",    // tomato orange
-                  rotation: "rotate-90"
-                },
-                {
-                  file: "puzzle-bonus-ted.svg",
-                  label: "BONUS (TED TALKS, CITATIONS…)",
-                  textColor: "text-[#E74C3C]",    // vivid red-orange
-                  rotation: "rotate-0"
-                },
-              ].map((item, index) => (
-                <PuzzleItem key={index} item={item} index={index} cluster={cluster} />
-              ))}
-            </motion.div>
-          );
-        })()}
+              Un format interactif et engageant
+            </h2>
+            <h3 className="text-base text-gray-700 mb-6">
+              Format court (20 min), idéal pour le micro-learning
+            </h3>
+          </div>
+          {/* Puzzle clustering animation */}
+          {(() => {
+            const [cluster, setCluster] = useState(false);
+
+            useEffect(() => {
+              const handleScroll = () => {
+                const scrollTriggerY = 900;
+                if (window.scrollY > scrollTriggerY) {
+                  setCluster(true);
+                } else {
+                  setCluster(false);
+                }
+              };
+              window.addEventListener('scroll', handleScroll);
+              // Run once on mount in case already scrolled
+              handleScroll();
+              return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+              <motion.div
+                className="flex flex-col md:flex-row items-center justify-center"
+                animate={{}}
+                style={{ display: 'flex', gap: `${cluster ? 4 : 32}px` }}
+                transition={{ type: 'spring', stiffness: 50, damping: 14 }}
+              >
+                {[
+                  {
+                    file: "puzzle-video-expert.svg",
+                    label: "VIDÉO EXPERT DE COACH (3-10 MIN)",
+                    textColor: "text-[#C2410C]",    // deep orange
+                    rotation: "rotate-0"
+                  },
+                  {
+                    file: "puzzle-storytelling.svg",
+                    label: "VIDÉO/AUDIO EN MODE STORYTELLING (2-3 MIN)",
+                    textColor: "text-[#A63D00]",    // burnt orange
+                    rotation: "-rotate-90"
+                  },
+                  {
+                    file: "puzzle-quiz-fiches.svg",
+                    label: "QUIZ, FICHES PRATIQUES, AUTO-DIAGNOSTICS",
+                    textColor: "text-[#D35400]",    // bright orange
+                    rotation: "rotate-180"
+                  },
+                  {
+                    file: "puzzle-articles.svg",
+                    label: "ARTICLES, BONNES PRATIQUES, MÉMOS-COACHING",
+                    textColor: "text-[#DB642C]",    // tomato orange
+                    rotation: "rotate-90"
+                  },
+                  {
+                    file: "puzzle-bonus-ted.svg",
+                    label: "BONUS (TED TALKS, CITATIONS…)",
+                    textColor: "text-[#E74C3C]",    // vivid red-orange
+                    rotation: "rotate-0"
+                  },
+                ].map((item, index) => (
+                  <PuzzleItem key={index} item={item} index={index} cluster={cluster} />
+                ))}
+              </motion.div>
+            );
+          })()}
+        </div>
+        {/* Mobile puzzle (sm: block, hidden above sm) with pt-28 */}
+        <div className="block sm:hidden pt-28">
+          <div className="max-w-screen-xl mx-auto text-center mb-12">
+            <h2
+              id="puzzle-title-mobile"
+              className="h2"
+            >
+              Un format interactif et engageant
+            </h2>
+            <h3 className="text-base text-gray-700 mb-6">
+              Format court (20 min), idéal pour le micro-learning
+            </h3>
+          </div>
+          {/* Puzzle clustering animation (mobile, no cluster) */}
+          <div className="flex flex-col items-center justify-center">
+            {[
+              {
+                file: "puzzle-video-expert.svg",
+                label: "VIDÉO EXPERT DE COACH (3-10 MIN)",
+                textColor: "text-[#C2410C]",    // deep orange
+                rotation: "rotate-0"
+              },
+              {
+                file: "puzzle-storytelling.svg",
+                label: "VIDÉO/AUDIO EN MODE STORYTELLING (2-3 MIN)",
+                textColor: "text-[#A63D00]",    // burnt orange
+                rotation: "-rotate-90"
+              },
+              {
+                file: "puzzle-quiz-fiches.svg",
+                label: "QUIZ, FICHES PRATIQUES, AUTO-DIAGNOSTICS",
+                textColor: "text-[#D35400]",    // bright orange
+                rotation: "rotate-180"
+              },
+              {
+                file: "puzzle-articles.svg",
+                label: "ARTICLES, BONNES PRATIQUES, MÉMOS-COACHING",
+                textColor: "text-[#DB642C]",    // tomato orange
+                rotation: "rotate-90"
+              },
+              {
+                file: "puzzle-bonus-ted.svg",
+                label: "BONUS (TED TALKS, CITATIONS…)",
+                textColor: "text-[#E74C3C]",    // vivid red-orange
+                rotation: "rotate-0"
+              },
+            ].map((item, index) => (
+              <PuzzleItem key={index} item={item} index={index} cluster={false} />
+            ))}
+          </div>
+        </div>
       </section>
       {/* Pourquoi choisir Afthonios Section */}
       <section className="py-20 px-6 bg-white">
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left items-center md:items-start">
-            <h2 className="h2 text-left">Pourquoi choisir Afthonios&nbsp;?</h2>
+            <h2 className="h2 text-center md:text-left">Pourquoi choisir Afthonios&nbsp;?</h2>
             <p className="text-lg text-gray-700 mb-4">
               Nos formations Soft Skills ont été conçues pour <strong>transformer les pratiques collaboratives</strong> avec plus
               d’humanité, d’efficacité et d’intelligence relationnelle.
@@ -393,8 +461,8 @@ export default function Home() {
               <li>
                 Droit de diffusion en interne pour tous vos collaborateurs, <span className="text-[#c2410c] font-semibold">sur votre LMS</span>
               </li>
-              <li className="flex items-start ml-1 gap-2 mt-6 pt-4 border-t border-gray-200 !list-none text-left">
-                <span className="inline-block w-7 h-7 text-[#c2410c] mr-3 min-w-[1.75rem] min-h-[1.75rem] flex items-center justify-center">
+              <li className="flex flex-col sm:flex-row sm:items-start ml-1 gap-2 mt-6 pt-4 border-t border-gray-200 !list-none text-left">
+                <span className="hidden sm:inline-block w-7 h-7 text-[#c2410c] sm:mr-3 min-w-[1.75rem] min-h-[1.75rem] flex items-center justify-center sm:justify-start sm:self-start mb-2 sm:mb-0">
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2l4-4" />
                   </svg>
@@ -410,7 +478,7 @@ export default function Home() {
         <div className="w-full flex justify-center mt-2 mb-10">
           <a
             href="#contact"
-            className="btn btn-primary"
+            className="btn btn-primary text-center w-full sm:w-auto"
             onClick={(e) => {
               e.preventDefault();
               setShowContactForm(!showContactForm);
@@ -590,19 +658,19 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
-                  title: "Entreprises & Collectivités",
+                  title: "Entreprises<br />& Collectivités",
                   price: "Entre 8.000 € et 35.000 €",
                   description: "selon la taille de l’organisation et le mode d’intégration",
                   icon: "🏢",
                 },
                 {
-                  title: "Universités & Écoles",
+                  title: "Universités<br />& Écoles",
                   price: "Entre 5.000 € et 15.000 €",
                   description: "selon la taille de l’établissement et les usages pédagogiques",
                   icon: "🎓",
                 },
                 {
-                  title: "Organismes de Formation",
+                  title: "Organismes<br />de Formation",
                   price: "Entre 5.000 € et 50.000 €",
                   description: "selon l’ampleur de l’exploitation et le volume de diffusion",
                   icon: "📚",
@@ -614,7 +682,10 @@ export default function Home() {
                 >
                   <p className="text-sm text-gray-500 mb-1">Tarif indicatif</p>
                   <div className="text-2xl mb-2">{card.icon}</div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{card.title}</h3>
+                  <h3
+                    className="text-xl font-bold text-gray-800 mb-2"
+                    dangerouslySetInnerHTML={{ __html: card.title }}
+                  />
                   <p className="text-gray-900 font-medium mb-2">{card.price}</p>
                   <p className="text-gray-500 text-sm">{card.description}</p>
                 </div>
@@ -642,25 +713,27 @@ export default function Home() {
               />
             </div>
             {/* Right: orange block, left-aligned and new spacing */}
-            <div className="bg-[#C2410C] h-full flex flex-col justify-center px-8 sm:px-12 lg:px-16 py-16 gap-4 text-white">
-              <div className="flex flex-col justify-center gap-6">
+            <div className="bg-[#C2410C] h-[320px] sm:h-[420px] flex flex-col justify-center px-4 sm:px-12 lg:px-16 py-6 sm:py-16 gap-4 text-white">
+              <div className="flex flex-col justify-center gap-4">
                 <img
                   src="https://res.cloudinary.com/djiqjc1ui/image/upload/v1748611820/Orange_RISE_Afthonios_Logo_with_text_glbww1.svg"
                   alt="Afthonios Logo"
                   className="w-32 mb-4"
                 />
-                <h3 className="text-3xl font-bold leading-tight pt-0 mb-4">
+                <h3 className="text-3xl font-bold leading-tight pt-0 mb-3">
                   La pensée positive&nbsp;: <br />
                   changer de regard
                 </h3>
-            <a
-              href="https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId2548&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
-              className="bg-white text-[#C2410C] font-semibold px-4 py-1 rounded-full inline-block mt-6 w-fit hover:bg-gray-100 transition text-sm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              COMMENCER LE MODULE
-            </a>
+                <div className="w-full flex justify-center sm:justify-start mt-2 sm:mt-6">
+                  <a
+                    href="https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId2548&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/137/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
+                    className="bg-white text-[#C2410C] font-semibold px-4 py-1 rounded-full w-fit hover:bg-gray-100 transition text-sm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    COMMENCER LE MODULE
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -961,6 +1034,7 @@ function PourquoiCarouselB() {
 }
 
 // PuzzleItem component for puzzle section
+import React from 'react';
 function PuzzleItem({
   item,
   index,
@@ -970,26 +1044,130 @@ function PuzzleItem({
   index: number,
   cluster: boolean
 }) {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.5 });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start({ opacity: 1, y: 0 });
+  // Responsive: check for mobile (portrait)
+  const [isMobile, setIsMobile] = useState(false);
+  const puzzleRef = React.useRef<HTMLDivElement | null>(null);
+  React.useEffect(() => {
+    function handleResize() {
+      setIsMobile(window.innerWidth < 640);
     }
-  }, [inView]);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
+  // Mobile scroll animation: use IntersectionObserver to add scroll-visible on .puzzle-scroll-animate
+  React.useEffect(() => {
+    if (!isMobile) return;
+    if (index === 0) return;
+    const el = puzzleRef.current;
+    if (!el) return;
+    el.classList.remove('scroll-visible');
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            el.classList.add('scroll-visible');
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, [isMobile, index]);
+
+  // For mobile: center horizontally, overlay label on image, add scroll animation to all except first
+  if (isMobile) {
+    if (index === 0) {
+      // First puzzle piece ("Vidéo Expert"): animate with framer-motion, updated animation, add mt-4 for spacing
+      return (
+        <div
+          className="flex flex-col items-center w-full text-center mt-4"
+          style={{
+            maxWidth: '320px',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
+        >
+          <motion.div
+            initial={{ y: 30 }}
+            whileInView={{ y: -30 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center w-full text-center"
+          >
+            <div className="relative w-full max-w-xs h-48 flex items-center justify-center">
+              <img
+                src={`/assets/${item.file}`}
+                alt={item.label}
+                className={`w-full h-auto object-contain transform ${item.rotation}`}
+                draggable={false}
+                style={{ opacity: 0.7 }}
+              />
+              <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
+                <span className="text-black text-[0.95rem] font-semibold leading-snug">
+                  {item.label}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      );
+    }
+    // All other puzzle pieces: add scroll animation class and use upward movement (translateY(-30px)), no opacity change
+    return (
+      <div
+        className="flex flex-col items-center w-full text-center mt-4"
+        style={{
+          maxWidth: '320px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}
+      >
+        <motion.div
+          ref={puzzleRef}
+          initial={{ y: 30 }}
+          whileInView={{ y: -30 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          className="puzzle-scroll-animate flex flex-col items-center w-full text-center"
+          style={{ opacity: 1 }}
+        >
+          <div className="relative w-full max-w-xs h-48 flex items-center justify-center">
+            <img
+              src={`/assets/${item.file}`}
+              alt={item.label}
+              className={`w-full h-auto object-contain transform ${item.rotation}`}
+              draggable={false}
+              style={{ opacity: 0.7 }}
+            />
+            <div className="absolute inset-0 flex items-center justify-center px-4 text-center">
+              <span className="text-black text-[0.95rem] font-semibold leading-snug">
+                {item.label}
+              </span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+  // Desktop/tablet layout
   return (
-    <motion.div
-      ref={ref}
+    <div
+      data-aos="fade-up"
+      data-aos-offset="300"
+      data-aos-delay="200"
+      data-aos-duration="600"
+      data-aos-easing="ease-out"
+      data-aos-once="true"
       className="flex flex-col items-center w-56 text-center mt-0"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{
-        opacity: 1,
-        y: 0,
-        x: cluster ? -index * 40 + 80 : 0
+      style={{
+        transform: cluster ? `translateX(${-index * 40 + 80}px)` : undefined,
+        transition: 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)'
       }}
-      transition={{ type: 'spring', stiffness: 50, damping: 14 }}
     >
       <div className="w-56 h-60 flex items-center justify-center">
         <img
@@ -1005,7 +1183,10 @@ function PuzzleItem({
       <div className={`px-4 text-[0.85rem] md:text-sm font-semibold leading-snug mt-2 ${item.textColor} min-h-[3.6rem]`}>
         {item.label}
       </div>
-    </motion.div>
+    </div>
   );
 }
 // (legacy handleSubmit removed; now handled inline in form)
+// --- AOS initialization is now handled in the Home component's useEffect ---
+import AOS from 'aos';
+import 'aos/dist/aos.css';
