@@ -112,19 +112,19 @@ export default function Home() {
     <main className="bg-gray-50">
       {/* Hero Section */}
       <section className="bg-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 min-h-[80vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[80vh]">
           {/* Left: Hero Image with gradient overlay */}
-          <div className="relative w-full h-[50vh] md:h-auto">
+          <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-auto">
             <img
               src="https://res.cloudinary.com/djiqjc1ui/image/upload/f_auto,q_auto,w_auto,dpr_auto/v1748513079/Hero_Nouvelle_Offre_mnauqa.png"
               alt="Femme souriante"
-              className="absolute inset-0 w-full h-full object-cover object-[25%_top] sm:object-[25%_top]"
+              className="absolute inset-0 w-full h-[60vh] md:h-[70vh] object-cover object-[25%_top] sm:object-[25%_top] lg:object-center"
             />
-            <div className="absolute inset-0 hidden md:block bg-[linear-gradient(to_right,_rgba(255,255,255,0)_50%,_rgba(255,255,255,1)_80%)]"></div>
+            <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(to_right,_rgba(255,255,255,0)_50%,_rgba(255,255,255,1)_80%)]"></div>
           </div>
 
           {/* Right: Text */}
-          <div className="relative z-10 flex flex-col justify-center items-center text-center text-center px-4 py-12 md:px-8 lg:px-10 md:-ml-32 lg:-ml-64">
+          <div className="relative z-10 flex flex-col justify-center items-center text-center px-4 py-12 md:px-8 lg:px-10 md:ml-0 lg:-ml-64">
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
               Boostez vos équipes avec des modules Soft&nbsp;Skills prêts à l’emploi
             </h1>
