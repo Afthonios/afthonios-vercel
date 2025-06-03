@@ -43,7 +43,7 @@ export async function POST(req: Request) {
 
   const mailOptions = {
     from: '"Nicolai Kalb" <nicolai.kalb@afthonios.com>',
-    to: 'nicolai.kalb@gmail.com',
+    to: 'aysseline.delardemelle@afthonios.com',
     replyTo: data.email,
     subject: `Nouveau message – ${data.source} (${data.prenom} ${data.nom})`,
     text: `

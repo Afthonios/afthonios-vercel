@@ -82,6 +82,7 @@ export default function RootLayout({
     <html lang="fr" className={theme === 'dark' ? 'dark' : ''}>
       <head>
         <meta name="color-scheme" content="light dark" />
+        <title>Afthonios – Formations haut de gamme – Management et Soft Skills</title>
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black dark:bg-gray-900 dark:text-white`}>
