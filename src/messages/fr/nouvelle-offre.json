@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "title": "Boostez vos équipes avec des modules Soft Skills prêts à l’emploi",
+    "subtitle": "Offrez à vos équipes des ressources Soft Skills prêtes à l’emploi — plus humaines, plus vivantes, plus impactantes. 250 modules SCORM & 350 vidéos en cession définitive. Aucun abonnement. Zéro contrainte.",
+    "cta": "Demandez une démo",
+    "imageAlt": "Femme souriante"
+  },
+  "offre": {
+    "title": "Notre nouvelle offre Afthonios",
+    "subtitle": "Développez les compétences humaines",
+    "description": "Afthonios vous propose une solution complète, concrète et flexible pour améliorer la performance et le bien-être de toutes vos équipes.",
+    "key1": {
+      "title": "Offre clé-en-main",
+      "desc": "Modules SCORM & vidéos intégrables directement sur votre plateforme."
+    },
+    "key2": {
+      "title": "Licence définitive",
+      "desc": "Payez une seule fois. Aucun abonnement, aucun frais caché."
+    },
+    "key3": {
+      "title": "Déploiement rapide",
+      "desc": "Intégration en moins d’une semaine dans votre écosystème de formation."
+    },
+    "key4": {
+      "title": "Pour tous les profils",
+      "desc": "Entreprise, école, collectivité, organisme de formation : notre solution s’adapte à vous."
+    }
+  },
+  "puzzle": {
+    "title": "Un format interactif et engageant",
+    "subtitle": "Format court (20 min), idéal pour le micro-learning"
+  },
+  "pourquoi": {
+    "title": "Pourquoi choisir Afthonios ?",
+    "desc1": "Nos formations Soft Skills ont été conçues pour transformer les pratiques collaboratives avec plus d’humanité, d’efficacité et d’intelligence relationnelle.",
+    "desc2": "Nous proposons un {catalogue} riche de 250 modules SCORM, 350 vidéos, et des contenus prêts à l'emploi que vos équipes peuvent intégrer immédiatement dans leur quotidien professionnel.",
+    "catalogue": "catalogue"
+  },
+  "thematiques": {
+    "title": "8 thématiques clés"
+  },
+  "catalogue": {
+    "cta": "Voir le catalogue"
+  },
+  "concretement": {
+    "title": "Ce que vous obtiendrez concrètement",
+    "li1": {
+      "strong": "250 modules Scorm clés en main",
+      "rest": "(format zip intégrable dans tous les LMS)"
+    },
+    "li2": {
+      "strong": "350 micro-vidéos Soft Skills",
+      "rest": "au format mp4 disponibles en français et anglais"
+    },
+    "li3": {
+      "before": "Accès illimité aux contenus sur votre plateforme,",
+      "strong": "sans date de fin"
+    },
+    "li4": {
+      "before": "Matrice des données,",
+      "strong": "guide d’intégration",
+      "after": "et support léger si besoin"
+    },
+    "li5": {
+      "before": "Droit de diffusion en interne pour tous vos collaborateurs,",
+      "strong": "sur votre LMS"
+    },
+    "li6": {
+      "strong": "Option supplémentaire :",
+      "rest": "remise de fichiers sources via Rise-Articulate"
+    },
+    "cta": "Contactez-nous pour en savoir plus"
+  },
+  "temoignages": {
+    "title": "Ils nous ont fait confiance"
+  },
+  "tarif": {
+    "title": "Tarification simple et transparente",
+    "subtitle": "Des contenus premium à un tarif accessible, sans abonnement, sans renouvellement.",
+    "desc": "Nos tarifs sont pensés pour refléter la valeur pédagogique et humaine de ces contenus tout en respectant les réalités économiques de chaque structure.",
+    "card": {
+      "indicatif": "Tarif indicatif"
+    },
+    "footer": "Chaque projet est unique. Nous prenons le temps d’ajuster nos propositions à vos besoins réels et à votre réalité de terrain."
+  },
+  "testez": {
+    "title": "Testez gratuitement notre pédagogie",
+    "module": {
+      "title": "La pensée positive : changer de regard",
+      "cta": "COMMENCER LE MODULE",
+      "desc": "Améliorez dès aujourd’hui votre regard sur les situations avec le module « La pensée positive ».",
+      "fr": "Accès Français",
+      "en": "Access English"
+    }
+  },
+  "pret": {
+    "title": "Prêt à démarrer ?",
+    "desc": "Contactez-nous pour une démonstration personnalisée ou pour échanger sur vos besoins spécifiques.",
+    "cta": "Contactez-nous maintenant"
+  }
+}

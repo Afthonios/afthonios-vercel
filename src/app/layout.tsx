@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Geist, Geist_Mono } from "next/font/google";
 import { Moon, Sun } from "lucide-react";
 import "./globals.css";
+import Header from "@/components/ui/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -79,17 +80,18 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="fr" className={theme === 'dark' ? 'dark' : ''}>
+    <html lang={typeof navigator !== 'undefined' && navigator.language.startsWith('en') ? 'en' : 'fr'} className={theme === 'dark' ? 'dark' : ''}>
       <head>
         <meta name="color-scheme" content="light dark" />
         <title>Afthonios – Formations haut de gamme – Management et Soft Skills</title>
         <link rel="icon" type="image/png" href="/favicon.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white text-black dark:bg-gray-900 dark:text-white`}>
+        <Header />
         {mounted && (
           <button
             onClick={toggleTheme}
-            className="fixed top-4 right-4 z-50 p-2 rounded bg-gray-100 dark:bg-gray-800"
+            className="fixed top-20 right-4 z-50 p-2 rounded bg-gray-100 dark:bg-gray-800 shadow"
             aria-label="Toggle dark mode"
           >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}

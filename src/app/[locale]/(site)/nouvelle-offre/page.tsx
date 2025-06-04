@@ -92,8 +92,13 @@ const slides = [
   },
 ];
 
+import { useTranslations } from 'next-intl';
+
 export default function Page() {
   // Contact form state for CTA
+  // Use hero translations for hero section
+  const t = useTranslations('nouvelle-offre');
+  const tHero = useTranslations('hero');
   const [showContactForm, setShowContactForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -143,7 +148,7 @@ export default function Page() {
           <div className="relative w-full h-[60vh] md:h-[70vh] lg:h-auto">
             <img
               src="https://res.cloudinary.com/djiqjc1ui/image/upload/f_auto,q_auto,w_auto,dpr_auto/v1748513079/Hero_Nouvelle_Offre_mnauqa.png"
-              alt="Femme souriante"
+              alt={tHero('imageAlt')}
               className="absolute inset-0 w-full h-[60vh] md:h-[70vh] object-cover object-[25%_top] sm:object-[25%_top] lg:object-center"
             />
             <div className="absolute inset-0 hidden lg:block dark:bg-[linear-gradient(to_right,_rgba(0,0,0,0)_50%,_rgba(15,23,42,1)_80%)] bg-[linear-gradient(to_right,_rgba(255,255,255,0)_50%,_rgba(255,255,255,1)_80%)]"></div>
@@ -151,13 +156,11 @@ export default function Page() {
 
           {/* Right: Text */}
           <div className="relative z-10 flex flex-col justify-center items-center text-center px-4 py-12 md:px-8 lg:px-10 md:ml-0 lg:-ml-64">
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900 dark:text-white font-sans">
-              Boostez vos équipes avec des modules Soft&nbsp;Skills prêts à l’emploi
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
+              {tHero('title')}
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 dark:text-white mb-6 leading-relaxed">
-              Offrez à vos équipes des ressources Soft Skills prêtes à l’emploi<br />— plus humaines, plus vivantes, plus impactantes.<br />
-              250&nbsp;modules SCORM & 350&nbsp;vidéos en cession définitive.<br />
-              Aucun abonnement. Zéro contrainte.
+            <p className="text-lg text-gray-700 mb-8">
+              {tHero('subtitle')}
             </p>
             <a
               href="#contact"
@@ -173,7 +176,7 @@ export default function Page() {
                 }, 100);
               }}
             >
-              Demandez une démo
+              {tHero('cta')}
             </a>
           </div>
         </div>
@@ -183,35 +186,35 @@ export default function Page() {
 <section className="py-16 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
   <div className="max-w-screen-xl mx-auto px-4">
     <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mb-4">
-      Notre nouvelle offre Afthonios
+      {t('offre.title')}
     </h2>
     <h3 className="text-2xl font-semibold text-center text-gray-800 dark:text-white mb-2">
-      Développez les compétences humaines
+      {t('offre.subtitle')}
     </h3>
     <p className="text-lg text-center text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
-      Afthonios vous propose une solution complète, concrète et flexible pour améliorer la performance et le bien-être de toutes vos équipes.
+      {t('offre.description')}
     </p>
         <div className="mx-6 md:mx-24">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             <div className="bg-gray-100 dark:bg-slate-700 dark:text-white px-6 py-8 rounded-xl shadow-md flex flex-col items-center transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
               <div className="text-4xl mb-4">📦</div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Offre clé-en-main</h3>
-              <p className="text-gray-700 dark:text-white">Modules SCORM & vidéos intégrables directement sur votre plateforme.</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('offre.key1.title')}</h3>
+              <p className="text-gray-700 dark:text-white">{t('offre.key1.desc')}</p>
             </div>
             <div className="bg-gray-100 dark:bg-slate-700 dark:text-white px-6 py-8 rounded-xl shadow-md flex flex-col items-center transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
               <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Licence définitive</h3>
-              <p className="text-gray-700 dark:text-white">Payez une seule fois. Aucun abonnement, aucun frais caché.</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('offre.key2.title')}</h3>
+              <p className="text-gray-700 dark:text-white">{t('offre.key2.desc')}</p>
             </div>
             <div className="bg-gray-100 dark:bg-slate-700 dark:text-white px-6 py-8 rounded-xl shadow-md flex flex-col items-center transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
               <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Déploiement rapide</h3>
-              <p className="text-gray-700 dark:text-white">Intégration en moins d’une semaine dans votre écosystème de formation.</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('offre.key3.title')}</h3>
+              <p className="text-gray-700 dark:text-white">{t('offre.key3.desc')}</p>
             </div>
             <div className="bg-gray-100 dark:bg-slate-700 dark:text-white px-6 py-8 rounded-xl shadow-md flex flex-col items-center transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
               <div className="text-4xl mb-4">🤝</div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Pour tous les profils</h3>
-              <p className="text-gray-700 dark:text-white">Entreprise, école, collectivité, organisme de formation : notre solution s’adapte à vous.</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('offre.key4.title')}</h3>
+              <p className="text-gray-700 dark:text-white">{t('offre.key4.desc')}</p>
             </div>
           </div>
         </div>
@@ -222,10 +225,10 @@ export default function Page() {
         <div className="hidden sm:block">
           <div className="max-w-screen-xl mx-auto text-center mb-12">
             <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-4">
-              Un format interactif et engageant
+              {t('puzzle.title')}
             </h2>
             <p className="text-lg font-medium text-center text-gray-800 dark:text-white mb-8">
-              Format court (20 min), idéal pour le micro-learning
+              {t('puzzle.subtitle')}
             </p>
           </div>
           {/* Puzzle clustering animation */}
@@ -235,10 +238,10 @@ export default function Page() {
         <div className="block sm:hidden pt-28">
           <div className="max-w-screen-xl mx-auto text-center mb-12">
             <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-4">
-              Un format interactif et engageant
+              {t('puzzle.title')}
             </h2>
             <p className="text-lg font-medium text-center text-gray-800 dark:text-white mb-8">
-              Format court (20 min), idéal pour le micro-learning
+              {t('puzzle.subtitle')}
             </p>
           </div>
           {/* Puzzle clustering animation (mobile, no cluster) */}
@@ -285,15 +288,24 @@ export default function Page() {
         <div className="max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-center md:text-left items-center md:items-start text-gray-900 dark:text-white">
             <h2 className="text-5xl font-extrabold text-left text-gray-900 dark:text-white mb-6">
-              Pourquoi choisir Afthonios&nbsp;?
+              {t('pourquoi.title')}
             </h2>
             <p className="text-lg text-gray-900 dark:text-white mb-4">
-              Nos formations Soft Skills ont été conçues pour <strong>transformer les pratiques collaboratives</strong> avec plus
-              d’humanité, d’efficacité et d’intelligence relationnelle.
+              {t('pourquoi.desc1')}
             </p>
             <p className="text-lg text-gray-900 dark:text-white">
-              Nous proposons un <a href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf" className="underline text-gray-900 dark:text-white" target="_blank" rel="noopener noreferrer">catalogue</a> riche de 250 modules SCORM, 350 vidéos, et <strong>des contenus prêts à l&apos;emploi</strong> que
-              vos équipes peuvent intégrer immédiatement dans leur quotidien professionnel.
+              {t('pourquoi.desc2', {
+                catalogue: (
+                  <a
+                    href="https://afthonios.com/wp-content/uploads/2025/05/Catalogue-des-Formations-Soft-Skills-2025-Afthonios.pdf"
+                    className="underline text-gray-900 dark:text-white"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t('pourquoi.catalogue')}
+                  </a>
+                )
+              })}
             </p>
           </div>
           <PourquoiCarouselA />
@@ -306,7 +318,7 @@ export default function Page() {
       <section className="py-16 px-6 bg-gray-200 dark:bg-gray-800">
         <div className="max-w-screen-xl mx-auto px-4">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-10">
-            8 thématiques clés
+            {t('thematiques.title')}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {(() => {
@@ -372,7 +384,7 @@ export default function Page() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Voir le catalogue
+            {t('catalogue.cta')}
           </a>
         </div>
       </section>
@@ -388,24 +400,24 @@ export default function Page() {
       <section className="py-16 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
         <div className="max-w-4xl mx-auto text-center pt-12 pb-20">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-10">
-            Ce que vous obtiendrez concrètement
+            {t('concretement.title')}
           </h2>
           <div className="bg-gray-100 dark:bg-gray-800 shadow-lg rounded-xl p-8 text-left text-gray-900 dark:text-white">
             <ul className="list-[square] pl-6 space-y-4 text-gray-800 dark:text-white text-[1.15rem] leading-relaxed marker:text-[#c2410c] dark:marker:text-orange-300 marker:text-2xl text-left items-start mt-4">
               <li>
-                <span className="text-[#c2410c] dark:text-orange-300 font-semibold">250 modules Scorm clés en main</span> (format zip intégrable dans tous les LMS)
+                <span className="text-[#c2410c] dark:text-orange-300 font-semibold">{t('concretement.li1.strong')}</span> {t('concretement.li1.rest')}
               </li>
               <li>
-                <span className="text-[#c2410c] dark:text-orange-300 font-semibold">350 micro-vidéos Soft Skills</span> au format mp4 disponibles en français et anglais
+                <span className="text-[#c2410c] dark:text-orange-300 font-semibold">{t('concretement.li2.strong')}</span> {t('concretement.li2.rest')}
               </li>
               <li>
-                Accès illimité aux contenus sur votre plateforme, <span className="text-[#c2410c] dark:text-orange-300 font-semibold">sans date de fin</span>
+                {t('concretement.li3.before')} <span className="text-[#c2410c] dark:text-orange-300 font-semibold">{t('concretement.li3.strong')}</span>
               </li>
               <li>
-                Matrice des données, <span className="text-[#c2410c] dark:text-orange-300 font-semibold">guide d’intégration</span> et support léger si besoin
+                {t('concretement.li4.before')} <span className="text-[#c2410c] dark:text-orange-300 font-semibold">{t('concretement.li4.strong')}</span> {t('concretement.li4.after')}
               </li>
               <li>
-                Droit de diffusion en interne pour tous vos collaborateurs, <span className="text-[#c2410c] dark:text-orange-300 font-semibold">sur votre LMS</span>
+                {t('concretement.li5.before')} <span className="text-[#c2410c] dark:text-orange-300 font-semibold">{t('concretement.li5.strong')}</span>
               </li>
               <li className="flex flex-col sm:flex-row sm:items-start ml-1 gap-2 mt-6 pt-4 border-t border-gray-200 !list-none text-left">
                 <span className="hidden sm:inline-block w-7 h-7 text-[#c2410c] dark:text-orange-300 sm:mr-3 min-w-[1.75rem] min-h-[1.75rem] flex items-center justify-center sm:justify-start sm:self-start mb-2 sm:mb-0">
@@ -414,7 +426,7 @@ export default function Page() {
                   </svg>
                 </span>
                 <span>
-                  <span className="font-semibold text-[#c2410c] dark:text-orange-300"><span className="whitespace-nowrap">Option supplémentaire :</span></span> remise de fichiers sources via Rise-Articulate
+                  <span className="font-semibold text-[#c2410c] dark:text-orange-300"><span className="whitespace-nowrap">{t('concretement.li6.strong')}</span></span> {t('concretement.li6.rest')}
                 </span>
               </li>
             </ul>
@@ -436,7 +448,7 @@ export default function Page() {
               }, 100);
             }}
           >
-            Contactez-nous pour en savoir plus
+            {t('concretement.cta')}
           </a>
         </div>
       </section>
@@ -445,7 +457,7 @@ export default function Page() {
       <section className="bg-gray-200 dark:bg-gray-800 py-16">
         <div className="max-w-screen-xl mx-auto text-center px-6">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-10">
-            Ils nous ont fait confiance
+            {t('temoignages.title')}
           </h2>
           <Swiper
             modules={[Autoplay]}
@@ -502,13 +514,13 @@ export default function Page() {
       <section className="py-20 px-6 bg-section-soft-orange dark:bg-gray-900 dark:text-white">
         <div className="max-w-screen-xl mx-auto text-center">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-6">
-            Tarification simple et transparente
+            {t('tarif.title')}
           </h2>
           <h3 className="text-xl font-semibold text-gray-800 dark:text-white mt-2 mb-2">
-            Des contenus premium à un tarif accessible, sans abonnement, sans renouvellement.
+            {t('tarif.subtitle')}
           </h3>
           <p className="text-gray-700 dark:text-gray-300 mb-12 max-w-3xl mx-auto">
-            Nos tarifs sont pensés pour refléter la valeur pédagogique et humaine de ces contenus tout en respectant les réalités économiques de chaque structure.
+            {t('tarif.desc')}
           </p>
           <div className="max-w-screen-lg mx-auto px-4">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -536,7 +548,7 @@ export default function Page() {
                   key={idx}
                 className="bg-white text-gray-900 dark:bg-slate-700 dark:text-white shadow-md rounded-xl p-6 text-center transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">Tarif indicatif</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-300 mb-1">{t('tarif.card.indicatif')}</p>
                   <div className="text-2xl mb-2">{card.icon}</div>
                   <h3
                     className="text-xl font-bold text-gray-800 dark:text-white mb-2"
@@ -549,7 +561,7 @@ export default function Page() {
             </div>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-300 mt-8 flex items-center justify-center gap-1">
-            <span>💬</span> Chaque projet est unique. Nous prenons le temps d’ajuster nos propositions à vos besoins réels et à votre réalité de terrain.
+            <span>💬</span> {t('tarif.footer')}
           </p>
         </div>
       </section>
@@ -557,7 +569,7 @@ export default function Page() {
       <section className="py-20 px-6 bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
         <div className="max-w-screen-xl mx-auto">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-10">
-            Testez gratuitement notre pédagogie
+            {t('testez.title')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch max-w-4xl mx-auto rounded-xl overflow-hidden shadow-lg">
             {/* Left image: keep sizing as requested */}
@@ -577,8 +589,7 @@ export default function Page() {
                   className="w-32 mb-4"
                 />
                 <h3 className="text-3xl font-bold leading-tight pt-0 mb-3 text-white font-sans text-left">
-                  La pensée positive&nbsp;: <br />
-                  changer de regard
+                  {t('testez.module.title')}
                 </h3>
                 <div className="w-full flex justify-center sm:justify-start mt-2 sm:mt-6">
                   <a
@@ -587,15 +598,14 @@ export default function Page() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    COMMENCER LE MODULE
+                    {t('testez.module.cta')}
                   </a>
                 </div>
               </div>
             </div>
           </div>
           <p className="text-center text-gray-800 dark:text-white text-lg mt-4">
-            Améliorez dès aujourd’hui votre regard sur les situations <br />
-            avec le module <span className="font-semibold text-[#c2410c] dark:text-orange-300">« La pensée positive »</span>.
+            {t('testez.module.desc')}
           </p>
           <div className="flex justify-center gap-6 mt-6 flex-wrap">
             <a
@@ -604,7 +614,7 @@ export default function Page() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Accès Français
+              {t('testez.module.fr')}
             </a>
             <a
               href="https://afthonios.com/wp-content/uploads/uncanny-snc/669/index.html?endpoint=https://afthonios.com/ucTinCan/&auth=LearnDashId4888&course_id=0&actor=%7B%22name%22%3A%20%5B%22Nicolai%20Kalb%22%5D%2C%20%22mbox%22%3A%20%5B%22mailto%3Anicolai.kalb%40afthonios.com%22%5D%7D&activity_id=https://afthonios.com/wp-content/uploads/uncanny-snc/669/index.html&client=AR2017&base_url=https://afthonios.com&nonce=140e322038"
@@ -612,7 +622,7 @@ export default function Page() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Access English
+              {t('testez.module.en')}
             </a>
           </div>
         </div>
@@ -620,10 +630,10 @@ export default function Page() {
       <section className="py-20 px-6 bg-gray-100 dark:bg-gray-950">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-5xl font-extrabold text-center text-gray-900 dark:text-white mt-16 mb-10">
-            Prêt à démarrer&nbsp;?
+            {t('pret.title')}
           </h2>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-10">
-            Contactez-nous pour une démonstration personnalisée ou pour échanger sur vos besoins spécifiques.
+            {t('pret.desc')}
           </p>
           <a
             href="#contact"
@@ -640,7 +650,7 @@ export default function Page() {
               }, 100);
             }}
           >
-            Contactez-nous maintenant
+            {t('pret.cta')}
           </a>
           {showContactForm && (
             <motion.div

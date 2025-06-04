@@ -1,9 +1,17 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+const withNextIntl = require('next-intl/plugin')(); // kein Pfad
+module.exports = withNextIntl({
   reactStrictMode: true,
   images: {
-    domains: ['afthonios.com', 'res.cloudinary.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'afthonios.com', pathname: '/**' },
+      { protocol: 'https', hostname: 'res.cloudinary.com', pathname: '/**' }
+    ]
   },
-};
-
-module.exports = nextConfig;
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack']
+    });
+    return config;
+  }
+});

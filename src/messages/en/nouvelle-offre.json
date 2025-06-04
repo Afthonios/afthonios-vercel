@@ -1,0 +1,101 @@
+{
+  "hero": {
+    "title": "Boost your teams with ready-to-use Soft Skills modules",
+    "subtitle": "Offer your teams ready-to-use Soft Skills resources — more human, more lively, more impactful. 250 SCORM modules & 350 videos in permanent license. No subscription. Zero constraints.",
+    "cta": "Request a demo",
+    "imageAlt": "Smiling woman"
+  },
+  "offre": {
+    "title": "Our new Afthonios offer",
+    "subtitle": "Develop human skills",
+    "description": "Afthonios offers a complete, practical and flexible solution to improve the performance and well-being of all your teams.",
+    "key1": {
+      "title": "Turnkey offer",
+      "desc": "SCORM modules & videos directly integrable into your platform."
+    },
+    "key2": {
+      "title": "Perpetual license",
+      "desc": "One-time payment. No subscription, no hidden fees."
+    },
+    "key3": {
+      "title": "Quick deployment",
+      "desc": "Integration in less than a week into your learning ecosystem."
+    },
+    "key4": {
+      "title": "For all profiles",
+      "desc": "Company, school, institution, training provider: our solution adapts to you."
+    }
+  },
+  "puzzle": {
+    "title": "An interactive and engaging format",
+    "subtitle": "Short format (20 min), ideal for micro-learning"
+  },
+  "pourquoi": {
+    "title": "Why choose Afthonios?",
+    "desc1": "Our Soft Skills training courses are designed to transform collaborative practices with more humanity, efficiency and relational intelligence.",
+    "desc2": "We offer a {catalogue} rich with 250 SCORM modules, 350 videos, and ready-to-use content your teams can integrate immediately into their professional life.",
+    "catalogue": "catalog"
+  },
+  "thematiques": {
+    "title": "8 key topics"
+  },
+  "catalogue": {
+    "cta": "View the catalog"
+  },
+  "concretement": {
+    "title": "What you will actually get",
+    "li1": {
+      "strong": "250 turnkey SCORM modules",
+      "rest": "(zip format integrable in any LMS)"
+    },
+    "li2": {
+      "strong": "350 Soft Skills micro-videos",
+      "rest": "in mp4 format available in French and English"
+    },
+    "li3": {
+      "before": "Unlimited content access on your platform,",
+      "strong": "with no expiry date"
+    },
+    "li4": {
+      "before": "Data matrix,",
+      "strong": "integration guide",
+      "after": "and light support if needed"
+    },
+    "li5": {
+      "before": "Internal broadcasting rights for all your employees,",
+      "strong": "on your LMS"
+    },
+    "li6": {
+      "strong": "Optional:",
+      "rest": "delivery of source files via Rise-Articulate"
+    },
+    "cta": "Contact us to learn more"
+  },
+  "temoignages": {
+    "title": "They trust us"
+  },
+  "tarif": {
+    "title": "Simple and transparent pricing",
+    "subtitle": "Premium content at an affordable price, with no subscription, no renewal.",
+    "desc": "Our prices are designed to reflect the educational and human value of this content while respecting the economic realities of each organization.",
+    "card": {
+      "indicatif": "Indicative price"
+    },
+    "footer": "Every project is unique. We take the time to tailor our proposals to your real needs and field reality."
+  },
+  "testez": {
+    "title": "Try our pedagogy for free",
+    "module": {
+      "title": "Positive thinking: changing your perspective",
+      "cta": "START MODULE",
+      "desc": "Improve your outlook today with the module 'Positive Thinking'.",
+      "fr": "French Access",
+      "en": "English Access"
+    }
+  },
+  "pret": {
+    "title": "Ready to get started?",
+    "desc": "Contact us for a personalized demo or to discuss your specific needs.",
+    "cta": "Contact us now"
+  }
+}
