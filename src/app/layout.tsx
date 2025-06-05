@@ -79,7 +79,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang={typeof navigator !== 'undefined' && navigator.language.startsWith('en') ? 'en' : 'fr'} className={theme === 'dark' ? 'dark' : ''}>
+    <html lang="en" className={theme === 'dark' ? 'dark' : ''}>
       <head>
         <meta name="color-scheme" content="light dark" />
         <title>Afthonios – Formations haut de gamme – Management et Soft Skills</title>
