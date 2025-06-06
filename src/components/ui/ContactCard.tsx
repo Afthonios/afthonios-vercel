@@ -4,7 +4,13 @@ import React, { useState } from 'react';
 
 interface ContactCardProps {
   locale: 'en' | 'fr';
-  onSubmit: (data: any) => void;
+  onSubmit: (data: {
+    prenom: string;
+    nom: string;
+    email: string;
+    organisation: string;
+    message: string;
+  }) => void;
 }
 
 export default function ContactCard({ locale, onSubmit }: ContactCardProps) {
