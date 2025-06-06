@@ -1,12 +1,13 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 
 export default function LogoSlider() {
-  const logos = [
+  const logos: string[] = [
     "https://res.cloudinary.com/djiqjc1ui/image/upload/v1748608737/credit-agricole-logo_kgqvj1.svg",
     "https://res.cloudinary.com/djiqjc1ui/image/upload/v1748608736/air-liquide-3_w3knmb.svg",
     "https://res.cloudinary.com/djiqjc1ui/image/upload/v1748608736/air-france-logo-1_ivn08c.svg",
@@ -41,9 +42,12 @@ export default function LogoSlider() {
 bg-white dark:bg-white 
 rounded-lg shadow-none dark:shadow-md dark:hover:shadow-lg 
 p-4 transition-all duration-300">
-                <img
+                <Image
                   src={logo.replace('/upload/', '/upload/f_auto,q_auto,w_300,dpr_auto/')}
                   alt={`Logo ${idx + 1}`}
+                  width={300}
+                  height={100}
+                  unoptimized
                   className="max-h-full max-w-full object-contain dark:brightness-125 dark:contrast-125"
                 />
               </div>
