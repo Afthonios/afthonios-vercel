@@ -12,3 +12,13 @@ export async function getClassicHeader() {
     return null;
   }
 }
+
+export async function getProjectAcademyPage() {
+  try {
+    const data = await directus.request(readSingleton('projectacademy_page'));
+    return data;
+  } catch (error) {
+    console.error("Error fetching projectacademy_page:", error);
+    return null;
+  }
+}

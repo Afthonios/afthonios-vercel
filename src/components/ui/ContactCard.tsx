@@ -2,7 +2,12 @@
 
 import React, { useState } from 'react';
 
-export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => void }) {
+interface ContactCardProps {
+  locale: 'en' | 'fr';
+  onSubmit: (data: any) => void;
+}
+
+export default function ContactCard({ locale, onSubmit }: ContactCardProps) {
   const [form, setForm] = useState({
     prenom: '',
     nom: '',
@@ -10,6 +15,8 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
     organisation: '',
     message: '',
   });
+
+  const [error, setError] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
@@ -19,9 +26,35 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (form.prenom && form.nom && form.email && form.organisation && form.message) {
+      setError(false);
       onSubmit(form);
+    } else {
+      setError(true);
     }
   };
+
+  const t = {
+    fr: {
+      firstName: 'Prénom',
+      lastName: 'Nom',
+      email: 'Adresse e-mail',
+      org: 'Organisation',
+      msg: 'Message',
+      send: 'Envoyer',
+      missing: 'Veuillez remplir tous les champs.',
+      orWriteUs: 'ou écrivez-nous directement sur',
+    },
+    en: {
+      firstName: 'First name',
+      lastName: 'Last name',
+      email: 'Email address',
+      org: 'Organization',
+      msg: 'Message',
+      send: 'Send',
+      missing: 'Please fill out all fields.',
+      orWriteUs: 'or write to us directly at',
+    },
+  }[locale];
 
   return (
     <div className="text-gray-900 dark:text-white p-8 w-full max-w-5xl mx-auto transition-colors duration-300">
@@ -32,7 +65,7 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
       >
         <div>
           <label htmlFor="prenom" className="block text-sm font-medium mb-1">
-            Prénom
+            {t.firstName}
           </label>
           <input
             id="prenom"
@@ -41,14 +74,14 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
             required
             value={form.prenom}
             onChange={handleChange}
-            placeholder="Prénom"
+            placeholder={t.firstName}
             autoComplete="given-name"
             className="w-full rounded px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
         <div>
           <label htmlFor="nom" className="block text-sm font-medium mb-1">
-            Nom
+            {t.lastName}
           </label>
           <input
             id="nom"
@@ -57,14 +90,14 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
             required
             value={form.nom}
             onChange={handleChange}
-            placeholder="Nom"
+            placeholder={t.lastName}
             autoComplete="family-name"
             className="w-full rounded px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
         <div>
           <label htmlFor="email" className="block text-sm font-medium mb-1">
-            Adresse e-mail
+            {t.email}
           </label>
           <input
             id="email"
@@ -73,14 +106,14 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
             required
             value={form.email}
             onChange={handleChange}
-            placeholder="vous@example.com"
+            placeholder="you@example.com"
             autoComplete="email"
             className="w-full rounded px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
         <div>
           <label htmlFor="organisation" className="block text-sm font-medium mb-1">
-            Organisation
+            {t.org}
           </label>
           <input
             id="organisation"
@@ -89,28 +122,27 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
             required
             value={form.organisation}
             onChange={handleChange}
-            placeholder="Organisation"
+            placeholder={t.org}
             autoComplete="organization"
             className="w-full rounded px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
         <div>
           <label htmlFor="message" className="block text-sm font-medium mb-1">
-            Message
+            {t.msg}
           </label>
           <textarea
             id="message"
             required
             value={form.message}
             onChange={handleChange}
-            placeholder="Votre message"
+            placeholder={t.msg}
             rows={4}
             className="w-full rounded px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white"
           />
         </div>
-        {/* Honeypot anti-spam field */}
         <div className="hidden">
-          <label htmlFor="website">Site Web</label>
+          <label htmlFor="website">Website</label>
           <input
             id="website"
             name="website"
@@ -126,12 +158,15 @@ export default function ContactCard({ onSubmit }: { onSubmit: (data: any) => voi
             type="submit"
             className="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-6 py-2 rounded shadow-sm"
           >
-            Envoyer
+            {t.send}
           </button>
+          {error && (
+            <p className="text-sm text-red-600 mt-2">{t.missing}</p>
+          )}
         </div>
         <div className="text-center text-sm mt-4">
           <p>
-            ou écrivez-nous directement sur<br />
+            {t.orWriteUs}<br />
             <a href="mailto:connect@afthonios.com" className="text-orange-700 hover:underline dark:text-orange-300">
               connect@afthonios.com
             </a>

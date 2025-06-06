@@ -101,6 +101,8 @@ Migration of the current Afthonios WordPress-based site into a modern, maintaina
 - Add ESLint, Prettier configuration
 - Normalize `h1–h3` across all layouts
 - Establish consistent color scheme (light/dark mode backgrounds, typography system)
+- Localized routes follow `[locale]/(site)/[slug]` pattern using Next.js App Router conventions. The `(site)` folder is used for grouping but not reflected in the URL.
+- Language-specific routes (e.g. `/fr/gestion-de-projet` and `/en/project-academy`) map to shared components in `components/pages` to avoid layout duplication.
 
 ---
 
@@ -122,10 +124,18 @@ Migration of the current Afthonios WordPress-based site into a modern, maintaina
   A working script was created to:
   - Read image assets from structured Cloudinary folders
   - Extract public URLs and metadata
-  - Prepare data for import into Directus assets or related collections
+  - Prepare data for import into Directus assets or related collections  
+  ➕ Completed: Cloudinary re-upload finalized, and export CSV from Directus is ready to be matched and updated by Aysseline. Final update of Directus entries will follow.
 
-- 🔁 **Update Micro Courses in Directus with Cloudinary URLs**  
-  Next, we will enhance the exported CSV from Directus (for `micro_courses`) by injecting the appropriate Cloudinary image URLs and updating the entries via CSV import.
+- ✅ **Update Micro Courses in Directus with Cloudinary URLs**  
+  Cloudinary titles were standardized via re-upload, and Aysseline will now align metadata with the Directus export. Once matched, Directus can be updated using the final CSV.
+
+- 🚧 **Build Project Academy Page**  
+  Focus now shifts to implementing the bilingual landing page for the Project Academy offer:
+  - Use existing WordPress content as reference
+  - Populate fields from the `projectacademy_page` singleton in Directus
+  - Structure layout using Tailwind and component-based Next.js approach
+  - Ensure `/fr/projectacademy` and `/en/projectacademy` routes are supported with language toggle
 
 - 🖨️ **Create Exportable Catalogue**  
   Build a course catalogue that:

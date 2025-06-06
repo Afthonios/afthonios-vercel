@@ -661,6 +661,7 @@ export default function Page() {
               className="overflow-hidden"
             >
               <ContactCard
+                locale="fr"
                 contextMessage={typeof document !== 'undefined' ? document.title : 'Nouvelle offre Afthonios'}
                 onSubmit={handleFormSubmit}
               />

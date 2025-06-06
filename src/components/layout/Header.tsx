@@ -1,4 +1,4 @@
-// src/components/ui/Header.tsx
+// src/components/layout/Header.tsx
 "use client";
 
 import Link from "next/link";
@@ -24,7 +24,9 @@ export default function Header({ locale, data }: HeaderProps) {
   };
 
   const homeLink = t(data.fr_logo_url, data.en_logo_url) || "/";
-  const logoUrl = data.logo_url && data.logo_url.trim().length > 0 ? data.logo_url : null;
+  const logoUrl = data.logo_url && data.logo_url.trim().length > 0
+    ? data.logo_url
+    : t(data.fr_logo_url, data.en_logo_url);
 
   const formationsUrl = t(data.fr_link_formations_url, data.en_link_formations_url);
   const formationsLabel = t(data.fr_formations_label, data.en_formations_label);
@@ -70,9 +72,10 @@ export default function Header({ locale, data }: HeaderProps) {
               <Image
                 src={logoUrl}
                 alt={locale === 'en' ? 'Afthonios Logo – Training' : 'Logo Afthonios – Formation'}
-                width={140}
-                height={40}
+                width={180}
+                height={60}
                 priority
+                style={{ height: "auto", width: "auto" }}
               />
             </div>
           </Link>

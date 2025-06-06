@@ -24,7 +24,7 @@ export default function HomePage({ params }: HomePageProps) {
               </Link>
             </li>
             <li>
-              <Link href="/fr/project-academy" className="text-orange-600 hover:underline">
+              <Link href="/fr/gestion-de-projet" className="text-orange-600 hover:underline">
                 🇫🇷 Project Academy
               </Link>
             </li>
