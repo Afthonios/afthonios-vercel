@@ -1,6 +1,6 @@
 import ProjectAcademyPage from '@/components/pages/project-academy';
 
-export default async function Page({ params }: { params: { locale: string } }) {
-  const { locale } = await Promise.resolve(params);
+export default function Page({ params }: { params: { locale: string } }) {
+  const { locale } = params;
   return <ProjectAcademyPage locale={locale} />;
 }
