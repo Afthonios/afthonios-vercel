@@ -1,9 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button as ShadButton } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import ContactCard from "@/components/ui/ContactCard";
 import CatalogueSlider from "@/components/ui/CatalogueSlider";
 import { motion } from 'framer-motion';
@@ -103,8 +99,6 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   // const [lastSentAt, setLastSentAt] = useState<number>(0);
-  // Add formSubmitted state for success message after submit
-  const [formSubmitted, setFormSubmitted] = useState(false);
   // Contact form submission handler
   function handleFormSubmit(data: { prenom: string; nom: string; email: string; organisation: string; message: string }) {
     const pageSource = "Nouvelle offre";
