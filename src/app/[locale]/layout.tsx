@@ -9,11 +9,13 @@ const directus = createDirectus(
   process.env.NEXT_PUBLIC_DIRECTUS_URL!
 ).with(rest());
 
-export default async function LocaleLayout(
-  props: { children: ReactNode; params: { locale: string } }
-) {
-  const { children, params } = props;
-  const { locale } = params;
+export default async function LocaleLayout({
+  children,
+  params: { locale },
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
 
   // Guard against unsupported locale
   if (!locales.includes(locale as (typeof locales)[number])) notFound();

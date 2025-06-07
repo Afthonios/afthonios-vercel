@@ -179,3 +179,29 @@ We have standardized how bilingual pages and UI components are organized:
   - Components simply pick between `data.field_fr` and `data.field_en` based on the `locale` prop.
 
 This structure cleanly separates **content (in Directus)** from **presentation (React components)**, ensuring that designers can update graphics and developers can update layouts without overwriting copy.
+
+---
+
+## 🔍 Debugging Directus Fields
+
+When building out new pages or components, it can be helpful to see exactly which fields Directus is returning. We added a temporary debug section in our React components to list all keys and values:
+
+```tsx
+{/* DEBUG: list all Directus fields */}
+<section className="mt-10 p-4 bg-gray-50 dark:bg-gray-800 rounded">
+  <h3 className="text-lg font-semibold">Debug: All Data Fields</h3>
+  <ul className="list-disc list-inside max-h-64 overflow-auto">
+    {Object.entries(data).map(([key, value]) => (
+      <li key={key} className="break-words">
+        <strong>{key}</strong>: {typeof value === 'string' ? value : JSON.stringify(value)}
+      </li>
+    ))}
+  </ul>
+</section>
+```
+
+- **Purpose:** Quickly inspect the full JSON payload from Directus without guessing field names.
+- **Usage:** Insert this snippet into any page component after fetching data; remove it once you have mapped all required fields.
+- **Result:** Ensures you can wire up exactly the fields defined in your Directus singleton or collection.
+
+This debug method complements using the Directus Admin UI or raw JSON dumps, making component development faster and more reliable.
