@@ -1,10 +1,8 @@
 {
   "functions": {
-    // Pin all API routes to fra1
-    "api/**/*.ts": {
+    "src/app/api/**/*.ts": {
       "regions": ["fra1"]
     },
-    // Pin all Next.js app-router SSR/ISR pages to fra1
     "src/app/**/*.ts": {
       "regions": ["fra1"]
     }
