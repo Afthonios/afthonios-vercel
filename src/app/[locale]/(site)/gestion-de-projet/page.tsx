@@ -1,4 +1,3 @@
-import { locales } from '@/i18n';
 import { getProjectAcademyPage } from '@/lib/directus';
 import { notFound } from 'next/navigation';
 import ProjectAcademyPage from '@/components/pages/project-academy';
