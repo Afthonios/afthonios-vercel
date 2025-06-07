@@ -114,7 +114,7 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
       )}
       {contactBlocks.length > 0 && (
         <div className="prose max-w-none dark:prose-invert">
-          {contactBlocks.map((block: any) => (
+          {contactBlocks.map((block: { id: string; data: { text: string } }) => (
             <p key={block.id}>{block.data.text}</p>
           ))}
         </div>
