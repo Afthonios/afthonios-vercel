@@ -1,3 +1,4 @@
+// src/app/[locale]/(site)/project-academy/page.tsx
 import { getProjectAcademyPage } from '@/lib/directus';
 import { notFound } from 'next/navigation';
 

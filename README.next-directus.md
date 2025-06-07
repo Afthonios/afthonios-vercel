@@ -150,3 +150,32 @@ Migration of the current Afthonios WordPress-based site into a modern, maintaina
   - Cloudinary image metadata (e.g. URLs, folder names, public IDs)
   
   Goal: enrich the Directus export with Cloudinary URLs (e.g. thumbnail image) based on a shared key (e.g. `slug` or `course_id`) to enable reimport or feed further tools such as the PDF catalogue.
+
+---
+
+## 🏗️ Page & Component Structure
+
+We have standardized how bilingual pages and UI components are organized:
+
+- **Localized Routes**  
+  Pages live under `src/app/[locale]/(site)/[slug]/page.tsx`, e.g.:  
+  - `/fr/nouvelle-offre` → `src/app/fr/(site)/nouvelle-offre/page.tsx`  
+  - `/en/project-academy` → `src/app/en/(site)/project-academy/page.tsx`
+
+- **Static Params & Locales**  
+  Each page exports a `generateStaticParams()` that reads from the `locales` array (`['fr', 'en']`) to pre-render both language variants.
+
+- **Data Fetching from Directus**  
+  - Singletons in Directus (`projectacademy_page`, `page_nouvelleoffre`, etc.) supply all text content fields (e.g. `title_fr`, `title_en`, `intro_text_fr`, `intro_text_en`, etc.).  
+  - Fetch functions live in `src/lib/directus.ts` (e.g. `getProjectAcademyPage()`, `getNouvelleOffrePage()`).  
+  - Page loaders (`page.tsx`) call these functions and render `notFound()` if the singleton is unpublished.
+
+- **Presentation vs. Data**  
+  - **Component Pages**: `src/components/pages/[slug].tsx` contain only presentation logic (graphics, layout, and UI primitives).  
+  - **UI Primitives**: Shared building blocks (Buttons, Inputs, Sliders, ContactCard, etc.) live in `src/components/ui/` and are reused across pages.
+
+- **Translation Strategy**  
+  - All textual content is now fetched from Directus; legacy `next-intl` JSON files are being phased out.  
+  - Components simply pick between `data.field_fr` and `data.field_en` based on the `locale` prop.
+
+This structure cleanly separates **content (in Directus)** from **presentation (React components)**, ensuring that designers can update graphics and developers can update layouts without overwriting copy.

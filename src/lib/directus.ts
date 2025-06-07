@@ -22,3 +22,13 @@ export async function getProjectAcademyPage() {
     return null;
   }
 }
+
+export async function getNouvelleOffrePage() {
+  try {
+    const data = await directus.request(readSingleton('page_nouvelleoffre'));
+    return data;
+  } catch (error) {
+    console.error("Error fetching page_nouvelleoffre:", error);
+    return null;
+  }
+}
