@@ -34,6 +34,7 @@ interface ProjectAcademyPageProps {
 }
 
 export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageProps) {
+
   const title = locale === 'fr' ? data.title_fr : data.title_en;
   const subtitle = locale === 'fr' ? data.subtitle_fr : data.subtitle_en;
   const introHtml = locale === 'fr' ? data.intro_text_fr : data.intro_text_en;
@@ -62,19 +63,19 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
       )}
       <div
         className="prose max-w-none dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: introHtml }}
+        dangerouslySetInnerHTML={{ __html: introHtml || '' }}
       />
 
       <h3 className="text-2xl font-semibold mt-8">{section1Title}</h3>
       <div
         className="prose max-w-none dark:prose-invert"
-        dangerouslySetInnerHTML={{ __html: section1Html }}
+        dangerouslySetInnerHTML={{ __html: section1Html || '' }}
       />
 
       {section1Html2 && (
         <div
           className="prose max-w-none dark:prose-invert"
-          dangerouslySetInnerHTML={{ __html: section1Html2 }}
+          dangerouslySetInnerHTML={{ __html: section1Html2 || '' }}
         />
       )}
 

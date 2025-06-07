@@ -204,4 +204,45 @@ When building out new pages or components, it can be helpful to see exactly whic
 - **Usage:** Insert this snippet into any page component after fetching data; remove it once you have mapped all required fields.
 - **Result:** Ensures you can wire up exactly the fields defined in your Directus singleton or collection.
 
-This debug method complements using the Directus Admin UI or raw JSON dumps, making component development faster and more reliable.
+
+
+---
+
+## 🔄 Locale Routing & Language Switcher
+
+### ✅ Locale Switcher mit Slug Mapping
+- Implementiert ein sprachabhängiges Umschalten (fr/en) im Header.
+- Slugs werden über eine zentrale Datei `slugMap` (`src/lib/locale-slug-map.ts`) abgebildet.
+- Funktion `getSwitchLocalePath()` berechnet den passenden Pfad auf Basis der aktuellen Route.
+- Beispiel: `/fr/nouvelle-offre` ⇄ `/en/new-offer`.
+- Fallback: Wenn kein Mapping gefunden wird, wird zur Sprach-Homepage `/fr` bzw. `/en` weitergeleitet.
+
+### ✅ Slug-basierte Static Site Generation
+- Neue Helper-Funktion `generateLocaleParams()` in `src/lib/staticLocales.ts` generiert `generateStaticParams` für alle lokalisierten Seiten.
+- Verhindert Build-Fehler durch fehlende `params.locale` im Layout.
+- Wird auf allen statischen Seiten (`page.tsx`) eingebunden:
+  ```ts
+  export const generateStaticParams = generateLocaleParams;
+  ```
+
+### ✅ Language Switcher im Header
+- UX verbessert: aktives Locale farblich hervorgehoben.
+- Umschaltbutton visuell wie ein Toggle gestaltet.
+- Flags optional über SVG eingebunden.
+- Links werden korrekt per Slug-Mapping gesetzt, nicht statisch.
+
+### ✅ Fehlerbehandlung & Debugging
+- Debug-Sektion im Header zeigt:
+  ```ts
+  Header Debug: {
+    locale: 'fr',
+    pathname: '/fr/nouvelle-offre',
+    currentSlug: 'nouvelle-offre',
+    otherLocale: 'en',
+    mappedSlug: 'new-offer',
+    switchLocaleUrl: '/en/new-offer',
+    frUrl: '/fr/nouvelle-offre',
+    enUrl: '/en/new-offer'
+  }
+  ```
+- Ziel: bessere Nachvollziehbarkeit, warum ggf. falsche Links generiert werden.

@@ -2,17 +2,14 @@ import { locales } from '@/i18n';
 import { getProjectAcademyPage } from '@/lib/directus';
 import { notFound } from 'next/navigation';
 import ProjectAcademyPage from '@/components/pages/project-academy';
+import { generateLocaleParams } from "@/lib/staticLocales";
 
-export function generateStaticParams(): { locale: string }[] {
-  return Array.from(locales).map((locale) => ({ locale }));
+export function generateStaticParams() {
+  return generateLocaleParams();
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
+export default async function Page({ params }: { params: { locale: string } }) {
+  const { locale } = params;
   const data = await getProjectAcademyPage();
   if (!data) return notFound();
   return <ProjectAcademyPage locale={locale} data={data} />;

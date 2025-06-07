@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { locales } from "@/i18n";
+import { generateLocaleParams } from "@/lib/staticLocales";
 
-export function generateStaticParams(): { locale: string }[] {
-  return Array.from(locales).map((locale) => ({ locale }));
-}
+export const generateStaticParams = generateLocaleParams;
+
 
 interface HomePageParams {
   params: Promise<{ locale: string }>;

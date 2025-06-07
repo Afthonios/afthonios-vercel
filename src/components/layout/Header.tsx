@@ -1,10 +1,13 @@
 // src/components/layout/Header.tsx
+// src/components/layout/Header.tsx
 "use client";
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { Moon, Sun } from "lucide-react";
+import { slugMap } from "@/lib/locale-slug-map";
+import { usePathname } from "next/navigation";
 interface HeaderProps {
   locale: string;
   data: {
@@ -17,6 +20,45 @@ interface HeaderProps {
 
 export default function Header({ locale, data }: HeaderProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  const pathname = usePathname();
+  const parts = pathname.split("/");
+  const currentSlug = parts[2];
+  const otherLocale = locale === "en" ? "fr" : "en";
+  const mappedSlug = currentSlug && slugMap?.[currentSlug as keyof typeof slugMap];
+  const switchLocaleUrl = `/${otherLocale}/${mappedSlug || ""}`;
+  const frUrl = locale === "fr" ? pathname : switchLocaleUrl;
+  const enUrl = locale === "en" ? pathname : switchLocaleUrl;
+  if (process.env.NODE_ENV === "development") {
+    console.log("Header Debug:", {
+      locale,
+      pathname,
+      currentSlug,
+      otherLocale,
+      mappedSlug,
+      switchLocaleUrl,
+      frUrl,
+      enUrl,
+    });
+  }
+
+  // On mount, read the saved theme or system preference
+  useEffect(() => {
+    const saved = window.localStorage.getItem("theme");
+    const useDark =
+      saved === "dark" ||
+      (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    setIsDark(useDark);
+    document.documentElement.classList.toggle("dark", useDark);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    window.localStorage.setItem("theme", next ? "dark" : "light");
+  };
 
   const t = (frValue?: string, enValue?: string): string | null => {
     const value = locale === 'en' ? enValue : frValue;
@@ -59,12 +101,12 @@ export default function Header({ locale, data }: HeaderProps) {
   const contactUrl = t(data.fr_contact_url, data.en_contact_url);
   const contactLabel = t(data.fr_contact_label, data.en_contact_label);
 
-  const switchLocaleUrl = locale === 'en' ? '/fr' : '/en';
+  // const switchLocaleUrl = slugMap?.[locale === "en" ? "fr" : "en"]?.path || "/";
   const switchLocaleLabel = locale === 'en' ? 'Français' : 'English';
   const switchLocaleIcon = locale === 'en' ? "/icons/france-flag.svg" : "/icons/uk-flag.svg";
 
   return (
-    <header className="py-4 px-6 whitespace-nowrap flex items-center justify-between text-white bg-[#111827] relative z-20">
+    <header className="py-3 px-6 whitespace-nowrap flex items-center justify-between text-white bg-[#0E323A] relative z-20 shadow-[0_2px_4px_rgba(0,0,0,0.1)] dark:shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
       <div className="flex items-center gap-4 flex-shrink-0">
         {homeLink && logoUrl && (
           <Link href={homeLink}>
@@ -93,7 +135,8 @@ export default function Header({ locale, data }: HeaderProps) {
           <span className="block w-6 h-0.5 bg-white"></span>
         </div>
       </button>
-      <nav className="hidden lg:flex lg:ml-8 gap-2 text-sm font-medium">
+      <div className="flex items-center gap-1 ml-auto">
+        <nav className="hidden lg:flex gap-2 text-sm font-medium">
         {formationsUrl && formationsLabel && (
           <Link
             href={formationsUrl}
@@ -333,23 +376,58 @@ export default function Header({ locale, data }: HeaderProps) {
           </Link>
         )}
 
-        {locale && (
+        </nav>
+        {/* Language switcher */}
+        <div className="hidden lg:flex items-center rounded-full p-1">
           <Link
-            href={switchLocaleUrl}
-            className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2"
+            href={frUrl}
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+              locale === 'fr'
+                ? 'bg-white text-[#600922]'
+                : 'text-white hover:bg-[#ffffff1a]'
+            }`}
+            aria-label="Version française"
           >
             <Image
-              src={switchLocaleIcon}
+              src="/icons/france-flag.svg"
               alt=""
               aria-hidden="true"
-              width={24}
-              height={24}
+              width={18}
+              height={18}
               unoptimized
             />
-            <span className="hidden sm:inline ml-1">{switchLocaleLabel}</span>
+            FR
           </Link>
-        )}
-      </nav>
+          <Link
+            href={enUrl}
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+              locale === 'en'
+                ? 'bg-white text-[#600922]'
+                : 'text-white hover:bg-[#ffffff1a]'
+            }`}
+            aria-label="English version"
+          >
+            <Image
+              src="/icons/uk-flag.svg"
+              alt=""
+              aria-hidden="true"
+              width={18}
+              height={18}
+              unoptimized
+            />
+            EN
+          </Link>
+        </div>
+        {/* Theme toggle (moved to the right) */}
+        <button
+          aria-label="Toggle theme"
+          onClick={toggleTheme}
+          className="p-2 rounded hover:bg-white/10 ml-0"
+        >
+          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+      </div>
+
       {isMobileOpen && (
         <div className="absolute top-full left-0 w-full bg-[#111827] z-20 md:hidden">
           <nav className="flex flex-col space-y-1 p-4">

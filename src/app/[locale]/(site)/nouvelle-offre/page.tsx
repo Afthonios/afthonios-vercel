@@ -1,10 +1,7 @@
-import { locales } from '@/i18n';
 import NouvelleOffrePage from '@/components/pages/nouvelle-offre';
+import { generateLocaleParams } from "@/lib/staticLocales";
 
-export function generateStaticParams(): { locale: string }[] {
-  return Array.from(locales).map((locale) => ({ locale }));
-}
-
+export const generateStaticParams = generateLocaleParams;
 export default async function Page({
   params,
 }: {

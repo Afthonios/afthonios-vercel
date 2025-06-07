@@ -1,14 +1,7 @@
-// src/app/[locale]/(site)/new-offer/page.tsx
-import { locales } from '@/i18n';
 import NouvelleOffrePage from '@/components/pages/nouvelle-offre';
+import { generateLocaleParams } from "@/lib/staticLocales";
 
-/**
- * Pre-generates a static page for each locale.
- */
-export function generateStaticParams(): { locale: string }[] {
-  return Array.from(locales).map((locale) => ({ locale }));
-}
-
+export const generateStaticParams = generateLocaleParams;
 export default async function Page({
   params,
 }: {
