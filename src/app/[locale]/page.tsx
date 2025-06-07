@@ -2,7 +2,7 @@ import Link from "next/link";
 import { locales } from "@/i18n";
 
 export function generateStaticParams(): { locale: string }[] {
-  return (locales as string[]).map((locale) => ({ locale }));
+  return Array.from(locales).map((locale) => ({ locale }));
 }
 
 interface HomePageParams {
