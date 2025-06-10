@@ -1,18 +1,17 @@
 import { getProjectAcademyPage } from '@/lib/directus';
-import type { ProjectAcademyPageProps } from '@/components/pages/project-academy';
 import { notFound } from 'next/navigation';
 import ProjectAcademyPage from '@/components/pages/project-academy';
 import { generateLocaleParams } from "@/lib/staticLocales";
-export const generateStaticParams = generateLocaleParams;
+import type { ProjectAcademyPageProps } from '@/components/pages/project-academy';
 
-type PageProps = {
-  params: {
-    locale: string;
-  };
-};
+export function generateStaticParams() {
+  return generateLocaleParams();
+}
 
-export default async function Page({ params }: PageProps) {
+// @ts-expect-error – Next.js type system injects incompatible generic constraint
+export default async function Page({ params }) {
   const { locale } = params;
+
   const raw = await getProjectAcademyPage();
   if (!raw) return notFound();
   const data = raw as ProjectAcademyPageProps['data'];
