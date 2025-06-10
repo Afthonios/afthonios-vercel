@@ -8,7 +8,13 @@ export function generateStaticParams() {
   return generateLocaleParams();
 }
 
-export default async function Page({ params }: { params: { locale: string } }) {
+interface Params {
+  params: {
+    locale: string;
+  };
+}
+
+export default async function Page({ params }: Params) {
   const { locale } = params;
 
   const data: ProjectAcademyPageProps['data'] = await getProjectAcademyPage();
