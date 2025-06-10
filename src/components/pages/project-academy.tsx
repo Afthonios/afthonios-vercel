@@ -57,8 +57,8 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
 
   return (
     <main className="px-6 py-10 space-y-8">
-      <h1 className="text-4xl font-bold">{title}</h1>
-      <h2 className="text-xl text-gray-600">{subtitle}</h2>
+      <h1>{title}</h1>
+      <h2>{subtitle}</h2>
       {heroImg && (
         <Image
           src={heroImg}
@@ -69,28 +69,28 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
         />
       )}
       <div
-        className="prose max-w-none dark:prose-invert"
+        className="prose-content"
         dangerouslySetInnerHTML={{ __html: introHtml || '' }}
       />
 
-      <h3 className="text-2xl font-semibold mt-8">{section1Title}</h3>
+      <h3>{section1Title}</h3>
       <div
-        className="prose max-w-none dark:prose-invert"
+        className="prose-content"
         dangerouslySetInnerHTML={{ __html: section1Html || '' }}
       />
 
       {section1Html2 && (
         <div
-          className="prose max-w-none dark:prose-invert"
+          className="prose-content"
           dangerouslySetInnerHTML={{ __html: section1Html2 || '' }}
         />
       )}
 
       {section2Title && (
         <>
-          <h3 className="text-2xl font-semibold mt-8">{section2Title}</h3>
+          <h3>{section2Title}</h3>
           <div
-            className="prose max-w-none dark:prose-invert"
+            className="prose-content"
             dangerouslySetInnerHTML={{ __html: section2Html || '' }}
           />
         </>
@@ -98,9 +98,9 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
 
       {section3Title && (
         <>
-          <h3 className="text-2xl font-semibold mt-8">{section3Title}</h3>
+          <h3>{section3Title}</h3>
           <div
-            className="prose max-w-none dark:prose-invert"
+            className="prose-content"
             dangerouslySetInnerHTML={{ __html: section3Html || '' }}
           />
         </>
@@ -108,9 +108,9 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
 
       {section4Title && (
         <>
-          <h3 className="text-2xl font-semibold mt-8">{section4Title}</h3>
+          <h3>{section4Title}</h3>
           <div
-            className="prose max-w-none dark:prose-invert"
+            className="prose-content"
             dangerouslySetInnerHTML={{ __html: section4Html || '' }}
           />
         </>
@@ -120,7 +120,7 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
         <button className="btn btn-primary mt-8">{contactLabel}</button>
       )}
       {contactBlocks.length > 0 && (
-        <div className="prose max-w-none dark:prose-invert">
+        <div className="prose-content">
           {contactBlocks.map((block: { id: string; data: { text: string } }) => (
             <p key={block.id}>{block.data.text}</p>
           ))}
