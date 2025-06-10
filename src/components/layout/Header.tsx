@@ -106,7 +106,7 @@ export default function Header({ locale, data }: HeaderProps) {
   const switchLocaleIcon = locale === 'en' ? "/icons/france-flag.svg" : "/icons/uk-flag.svg";
 
   return (
-    <header className="py-3 px-6 whitespace-nowrap flex items-center justify-between text-white bg-[#0E323A] relative z-20 shadow-[0_2px_4px_rgba(0,0,0,0.1)] dark:shadow-[0_2px_4px_rgba(255,255,255,0.1)]">
+    <header className="py-3 px-6 whitespace-nowrap flex items-center justify-between text-white bg-[#0E323A] relative z-20 shadow-md">
       <div className="flex items-center gap-4 flex-shrink-0">
         {homeLink && logoUrl && (
           <Link href={homeLink}>
@@ -136,11 +136,11 @@ export default function Header({ locale, data }: HeaderProps) {
         </div>
       </button>
       <div className="flex items-center gap-1 ml-auto">
-        <nav className="hidden lg:flex gap-2 text-sm font-medium">
+        <nav className="hidden lg:flex gap-2 text-base font-medium">
         {formationsUrl && formationsLabel && (
           <Link
             href={formationsUrl}
-            className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2"
+            className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2"
           >
             <Image
               src="/icons/formations.svg"
@@ -158,7 +158,7 @@ export default function Header({ locale, data }: HeaderProps) {
         {offreEntrepriseLabel && (
           <div className="relative group">
             {/** Button, das selbst Teil der “group” ist */}
-            <div className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2 cursor-pointer">
+            <div className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2 cursor-pointer">
               <Image
                 src="/icons/entreprise.svg"
                 alt=""
@@ -173,17 +173,17 @@ export default function Header({ locale, data }: HeaderProps) {
             <div
               className="
                 absolute
-                top-full left-0                     /* direkt unter dem Button */
-                hidden group-hover:block            /* nur, wenn die Maus im group-Bereich ist */
-                bg-[#600922] text-sm mt-0.5         /* kaum Abstand */
+                top-full left-0
+                hidden group-hover:block
+                bg-[#770E31] text-base mt-0.5
                 rounded shadow-md z-50
-                min-w-max                           /* Breite so groß wie nötig */
+                min-w-max
               "
             >
               {offreEntrepriseSub1Url && offreEntrepriseSub1Label && (
                 <Link
                   href={offreEntrepriseSub1Url}
-                  className="block px-4 py-2 hover:bg-[#801030] whitespace-nowrap"
+                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
                 >
                   {offreEntrepriseSub1Label}
                 </Link>
@@ -191,7 +191,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {offreEntrepriseSub2Url && offreEntrepriseSub2Label && (
                 <Link
                   href={offreEntrepriseSub2Url}
-                  className="block px-4 py-2 hover:bg-[#801030] whitespace-nowrap"
+                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
                 >
                   {offreEntrepriseSub2Label}
                 </Link>
@@ -199,7 +199,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {offreEntrepriseSub3Url && offreEntrepriseSub3Label && (
                 <Link
                   href={offreEntrepriseSub3Url}
-                  className="block px-4 py-2 hover:bg-[#801030] whitespace-nowrap"
+                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
                 >
                   {offreEntrepriseSub3Label}
                 </Link>
@@ -211,7 +211,7 @@ export default function Header({ locale, data }: HeaderProps) {
         {coursOffertUrl && coursOffertLabel && (
           <Link
             href={coursOffertUrl}
-            className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2"
+            className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2"
           >
             <Image
               src="/icons/cours-offert.svg"
@@ -236,7 +236,7 @@ export default function Header({ locale, data }: HeaderProps) {
                   : 'https://afthonios.com/mon-compte/abonnement/'
               }
             >
-              <div className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2 cursor-pointer">
+              <div className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2 cursor-pointer">
                 <Image
                   src="/icons/compte.svg"
                   alt=""
@@ -254,7 +254,7 @@ export default function Header({ locale, data }: HeaderProps) {
                 absolute
                 top-full left-0
                 hidden group-hover:block
-                bg-[#600922] text-sm mt-0.5
+                bg-[#770E31] text-base mt-0.5
                 rounded shadow-md z-50
                 min-w-max
               "
@@ -262,7 +262,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub2Url && monCompteSub2Label && (
                 <Link
                   href={monCompteSub2Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/certificate.svg"
@@ -278,7 +278,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub3Url && monCompteSub3Label && (
                 <Link
                   href={monCompteSub3Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/abonnement.svg"
@@ -294,7 +294,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub4Url && monCompteSub4Label && (
                 <Link
                   href={monCompteSub4Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/invoice.svg"
@@ -310,7 +310,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub5Url && monCompteSub5Label && (
                 <Link
                   href={monCompteSub5Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/paiement.svg"
@@ -326,7 +326,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub6Url && monCompteSub6Label && (
                 <Link
                   href={monCompteSub6Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/password.svg"
@@ -342,7 +342,7 @@ export default function Header({ locale, data }: HeaderProps) {
               {monCompteSub1Url && monCompteSub1Label && (
                 <Link
                   href={monCompteSub1Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#801030]"
+                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
                 >
                   <Image
                     src="/icons/logout.svg"
@@ -362,7 +362,7 @@ export default function Header({ locale, data }: HeaderProps) {
         {contactUrl && contactLabel && (
           <Link
             href={contactUrl}
-            className="h-10 bg-[#600922] hover:bg-[#801030] px-4 rounded flex items-center justify-center gap-2"
+            className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2"
           >
             <Image
               src="/icons/contact.svg"
@@ -381,10 +381,10 @@ export default function Header({ locale, data }: HeaderProps) {
         <div className="hidden lg:flex items-center rounded-full p-1">
           <Link
             href={frUrl}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium ${
               locale === 'fr'
-                ? 'bg-white text-[#600922]'
-                : 'text-white hover:bg-[#ffffff1a]'
+                ? 'bg-white text-gray-900'
+                : 'text-white hover:bg-white/10'
             }`}
             aria-label="Version française"
           >
@@ -400,10 +400,10 @@ export default function Header({ locale, data }: HeaderProps) {
           </Link>
           <Link
             href={enUrl}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium ${
               locale === 'en'
-                ? 'bg-white text-[#600922]'
-                : 'text-white hover:bg-[#ffffff1a]'
+                ? 'bg-white text-gray-900'
+                : 'text-white hover:bg-white/10'
             }`}
             aria-label="English version"
           >
@@ -429,39 +429,39 @@ export default function Header({ locale, data }: HeaderProps) {
       </div>
 
       {isMobileOpen && (
-        <div className="absolute top-full left-0 w-full bg-[#111827] z-20 md:hidden">
+        <div className="absolute top-full left-0 w-full bg-primary-950 z-20 md:hidden">
           <nav className="flex flex-col space-y-1 p-4">
             {formationsUrl && formationsLabel && (
-              <Link href={formationsUrl} className="py-2 px-3 text-white hover:bg-[#801030] flex items-center gap-2">
+              <Link href={formationsUrl} className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                 <Image src="/icons/formations.svg" alt="" width={20} height={20} unoptimized />
                 {formationsLabel}
               </Link>
             )}
             {offreEntrepriseLabel && (
               <>
-                <div className="py-2 px-3 text-white font-semibold flex items-center gap-2">
+                <div className="py-2 px-3 text-white font-semibold flex items-center gap-2 text-base">
                   <Image src="/icons/entreprise.svg" alt="" width={20} height={20} unoptimized />
                   {offreEntrepriseLabel}
                 </div>
                 {offreEntrepriseSub1Url && offreEntrepriseSub1Label && (
-                  <Link href={offreEntrepriseSub1Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030]">
+                  <Link href={offreEntrepriseSub1Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] text-base">
                     {offreEntrepriseSub1Label}
                   </Link>
                 )}
                 {offreEntrepriseSub2Url && offreEntrepriseSub2Label && (
-                  <Link href={offreEntrepriseSub2Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030]">
+                  <Link href={offreEntrepriseSub2Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] text-base">
                     {offreEntrepriseSub2Label}
                   </Link>
                 )}
                 {offreEntrepriseSub3Url && offreEntrepriseSub3Label && (
-                  <Link href={offreEntrepriseSub3Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030]">
+                  <Link href={offreEntrepriseSub3Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] text-base">
                     {offreEntrepriseSub3Label}
                   </Link>
                 )}
               </>
             )}
             {coursOffertUrl && coursOffertLabel && (
-              <Link href={coursOffertUrl} className="py-2 px-3 text-white hover:bg-[#801030] flex items-center gap-2">
+              <Link href={coursOffertUrl} className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                 <Image src="/icons/cours-offert.svg" alt="" width={20} height={20} unoptimized />
                 {coursOffertLabel}
               </Link>
@@ -472,43 +472,43 @@ export default function Header({ locale, data }: HeaderProps) {
                   href={locale === 'en'
                     ? 'https://afthonios.com/en/my-account/abonnement/'
                     : 'https://afthonios.com/mon-compte/abonnement/'}
-                  className="py-2 px-3 text-white hover:bg-[#801030] flex items-center gap-2 font-semibold"
+                  className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 font-semibold text-base"
                 >
                   <Image src="/icons/compte.svg" alt="" width={20} height={20} unoptimized />
                   {monCompteLabel}
                 </Link>
                 {monCompteSub2Url && monCompteSub2Label && (
-                  <Link href={monCompteSub2Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub2Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/certificate.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub2Label}
                   </Link>
                 )}
                 {monCompteSub3Url && monCompteSub3Label && (
-                  <Link href={monCompteSub3Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub3Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/abonnement.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub3Label}
                   </Link>
                 )}
                 {monCompteSub4Url && monCompteSub4Label && (
-                  <Link href={monCompteSub4Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub4Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/invoice.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub4Label}
                   </Link>
                 )}
                 {monCompteSub5Url && monCompteSub5Label && (
-                  <Link href={monCompteSub5Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub5Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/paiement.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub5Label}
                   </Link>
                 )}
                 {monCompteSub6Url && monCompteSub6Label && (
-                  <Link href={monCompteSub6Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub6Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/password.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub6Label}
                   </Link>
                 )}
                 {monCompteSub1Url && monCompteSub1Label && (
-                  <Link href={monCompteSub1Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#801030] flex items-center gap-2">
+                  <Link href={monCompteSub1Url} className="py-2 pl-8 pr-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                     <Image src="/icons/logout.svg" alt="" width={20} height={20} unoptimized />
                     {monCompteSub1Label}
                   </Link>
@@ -516,13 +516,13 @@ export default function Header({ locale, data }: HeaderProps) {
               </>
             )}
             {contactUrl && contactLabel && (
-              <Link href={contactUrl} className="py-2 px-3 text-white hover:bg-[#801030] flex items-center gap-2">
+              <Link href={contactUrl} className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                 <Image src="/icons/contact.svg" alt="" width={20} height={20} unoptimized />
                 {contactLabel}
               </Link>
             )}
             {locale && (
-              <Link href={switchLocaleUrl} className="py-2 px-3 text-white hover:bg-[#801030] flex items-center gap-2">
+              <Link href={switchLocaleUrl} className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">
                 <Image src={switchLocaleIcon} alt="" width={20} height={20} unoptimized />
                 {switchLocaleLabel}
               </Link>
