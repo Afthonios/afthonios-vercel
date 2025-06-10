@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import React from 'react';
@@ -28,21 +26,22 @@ export default function Footer() {
         ];
 
   return (
-    <footer className="bg-[#0E323A] text-white py-6">
-      <div className="container mx-auto px-6 flex flex-col-reverse md:flex-row items-center justify-center gap-4">
-        <div className="text-sm">&copy; {year} Afthonios</div>
-        <div className="flex flex-wrap items-center text-sm">
+    <footer className="bg-[#0E323A] text-white py-10 text-lg">
+      <div className="container mx-auto px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 text-lg">
           {links.map((link, idx) => (
             <span key={link.href} className="inline-flex items-center">
               <Link href={link.href} className="hover:underline">
                 {link.label}
               </Link>
               {idx < links.length - 1 && (
-                <span className="mx-3">|</span>
+                <span className="mx-3 hidden sm:inline">|</span>
               )}
             </span>
           ))}
         </div>
+        <hr className="border-t border-gray-600 w-full max-w-screen-md mt-2 mb-4" />
+        <div className="text-lg text-gray-100 font-medium">&copy; {year} Afthonios</div>
       </div>
     </footer>
   );
