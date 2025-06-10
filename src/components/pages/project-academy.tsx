@@ -56,9 +56,14 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
       : data.contact_text_en && data.contact_text_en.blocks) || [];
 
   return (
-    <main className="px-6 py-10 space-y-8">
-      <h1>{title}</h1>
-      <h2>{subtitle}</h2>
+    <div className="px-40 py-10 space-y-8">
+      <h1 className="mt-20 text-4xl font-serif font-bold">{title}</h1>
+      <div className="flex flex-col lg:flex-row gap-8 items-start max-w-6xl mx-auto">
+        <div className="flex items-start gap-4 flex-1">
+          <h3 className="text-xl font-medium text-gray-700 dark:text-white text-center w-full">{subtitle}</h3>
+        </div>
+      </div>
+      {/* <h3 className="text-xl font-medium text-gray-700">{subtitle}</h3> */}
       {heroImg && (
         <Image
           src={heroImg}
@@ -69,28 +74,37 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
         />
       )}
       <div
-        className="prose-content"
+        className="richtext-block"
         dangerouslySetInnerHTML={{ __html: introHtml || '' }}
       />
 
-      <h3>{section1Title}</h3>
-      <div
-        className="prose-content"
-        dangerouslySetInnerHTML={{ __html: section1Html || '' }}
-      />
+      <h2 className="text-2xl font-sans font-bold mt-20">{section1Title}</h2>
+      <div className="grid lg:grid-cols-4 gap-6 items-center justify-center">
+        <Image
+          src="https://afthonios.com/wp-content/uploads/2025/04/ProductBox-Complete-set-1536x1024.png"
+          alt="Product Box"
+          width={700}
+          height={700}
+          className="rounded-md object-cover mx-auto lg:justify-self-end lg:w-[700px] lg:h-[700px] w-full max-w-full h-auto"
+        />
+        <div
+          className="richtext-block lg:col-span-3 text-left space-y-4 text-lg"
+          dangerouslySetInnerHTML={{ __html: section1Html || '' }}
+        />
+      </div>
 
       {section1Html2 && (
         <div
-          className="prose-content"
+          className="richtext-block"
           dangerouslySetInnerHTML={{ __html: section1Html2 || '' }}
         />
       )}
 
       {section2Title && (
         <>
-          <h3>{section2Title}</h3>
+          <h2 className="text-2xl font-sans font-bold mt-20">{section2Title}</h2>
           <div
-            className="prose-content"
+            className="richtext-block"
             dangerouslySetInnerHTML={{ __html: section2Html || '' }}
           />
         </>
@@ -98,9 +112,9 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
 
       {section3Title && (
         <>
-          <h3>{section3Title}</h3>
+          <h2 className="text-2xl font-sans font-bold mt-20">{section3Title}</h2>
           <div
-            className="prose-content"
+            className="richtext-block"
             dangerouslySetInnerHTML={{ __html: section3Html || '' }}
           />
         </>
@@ -108,9 +122,9 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
 
       {section4Title && (
         <>
-          <h3>{section4Title}</h3>
+          <h2 className="text-2xl font-sans font-bold mt-20">{section4Title}</h2>
           <div
-            className="prose-content"
+            className="richtext-block"
             dangerouslySetInnerHTML={{ __html: section4Html || '' }}
           />
         </>
@@ -120,12 +134,12 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
         <button className="btn btn-primary mt-8">{contactLabel}</button>
       )}
       {contactBlocks.length > 0 && (
-        <div className="prose-content">
+        <div className="richtext-block">
           {contactBlocks.map((block: { id: string; data: { text: string } }) => (
             <p key={block.id}>{block.data.text}</p>
           ))}
         </div>
       )}
-    </main>
+    </div>
   );
 }
