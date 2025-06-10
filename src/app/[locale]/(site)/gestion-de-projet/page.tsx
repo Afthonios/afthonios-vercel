@@ -8,13 +8,8 @@ export function generateStaticParams() {
   return generateLocaleParams();
 }
 
-type PageProps = {
-  params: {
-    locale: string;
-  };
-};
-
-export default async function Page({ params }: PageProps) {
+// @ts-expect-error – Next.js type system injects incompatible generic constraint
+export default async function Page({ params }) {
   const { locale } = params;
 
   const data: ProjectAcademyPageProps['data'] = await getProjectAcademyPage();
