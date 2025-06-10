@@ -12,7 +12,8 @@ export function generateStaticParams() {
 export default async function Page({ params }) {
   const { locale } = params;
 
-  const data: ProjectAcademyPageProps['data'] = await getProjectAcademyPage();
-  if (!data) return notFound();
+  const raw = await getProjectAcademyPage();
+  if (!raw) return notFound();
+  const data = raw as ProjectAcademyPageProps['data'];
   return <ProjectAcademyPage locale={locale} data={data} />;
 }
