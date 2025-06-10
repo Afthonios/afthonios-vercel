@@ -1,4 +1,4 @@
-interface ProjectAcademyPageProps {
+export interface ProjectAcademyPageProps {
   locale: string;
   data: {
     title_fr: string;
@@ -34,7 +34,6 @@ interface ProjectAcademyPageProps {
 }
 
 export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageProps) {
-
   const title = locale === 'fr' ? data.title_fr : data.title_en;
   const subtitle = locale === 'fr' ? data.subtitle_fr : data.subtitle_en;
   const introHtml = locale === 'fr' ? data.intro_text_fr : data.intro_text_en;
