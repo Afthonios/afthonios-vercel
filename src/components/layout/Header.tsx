@@ -20,6 +20,8 @@ interface HeaderProps {
 
 export default function Header({ locale, data }: HeaderProps) {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isOffreOpen, setIsOffreOpen] = useState(false);
+  const [isMonCompteOpen, setIsMonCompteOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
   const pathname = usePathname();
@@ -107,7 +109,8 @@ export default function Header({ locale, data }: HeaderProps) {
 
   return (
     <header className="py-3 px-6 whitespace-nowrap flex items-center justify-between text-white bg-[#0E323A] relative z-20 shadow-md">
-      <div className="flex items-center gap-4 flex-shrink-0">
+      {/* Desktop logo block */}
+      <div className="hidden xl:flex items-center gap-4 flex-shrink-0">
         {homeLink && logoUrl && (
           <Link href={homeLink}>
             <div className="flex-shrink-0">
@@ -123,20 +126,51 @@ export default function Header({ locale, data }: HeaderProps) {
           </Link>
         )}
       </div>
-      <button
-        className="lg:hidden flex items-center justify-center p-2"
-        onClick={() => setIsMobileOpen((prev) => !prev)}
-        aria-label="Toggle menu"
-      >
-        {/* Simple hamburger icon: three bars */}
-        <div className="space-y-1">
-          <span className="block w-6 h-0.5 bg-white"></span>
-          <span className="block w-6 h-0.5 bg-white"></span>
-          <span className="block w-6 h-0.5 bg-white"></span>
+      {/* Mobile layout: hamburger left, logo center, theme right */}
+      <div className="xl:hidden flex items-center justify-between w-full">
+        <div className="flex-shrink-0">
+          <button
+            className="relative z-30 flex items-center justify-center p-2"
+            onClick={() => setIsMobileOpen((prev) => !prev)}
+            aria-label="Toggle menu"
+          >
+            {/* Simple hamburger icon: three bars */}
+            <div className="space-y-1">
+              <span className="block w-6 h-0.5 bg-white"></span>
+              <span className="block w-6 h-0.5 bg-white"></span>
+              <span className="block w-6 h-0.5 bg-white"></span>
+            </div>
+          </button>
         </div>
-      </button>
+        <div className="flex justify-center flex-grow">
+          {homeLink && logoUrl && (
+            <Link href={homeLink}>
+              <div className="flex-shrink-0">
+                <Image
+                  src={logoUrl}
+                  alt={locale === 'en' ? 'Afthonios Logo – Training' : 'Logo Afthonios – Formation'}
+                  width={140}
+                  height={40}
+                  priority
+                  style={{ height: "auto", width: "auto" }}
+                />
+              </div>
+            </Link>
+          )}
+        </div>
+        <div className="flex-shrink-0">
+          <button
+            aria-label="Toggle theme"
+            onClick={toggleTheme}
+            className="p-2 rounded hover:bg-white/10 ml-0"
+          >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+        </div>
+      </div>
+      {/* Desktop nav and controls */}
       <div className="flex items-center gap-1 ml-auto">
-        <nav className="hidden lg:flex gap-2 text-base font-medium">
+        <nav className="hidden xl:flex gap-2 text-base font-medium">
         {formationsUrl && formationsLabel && (
           <Link
             href={formationsUrl}
@@ -156,8 +190,11 @@ export default function Header({ locale, data }: HeaderProps) {
 
         {/* ─── Angebotsmenü (Offre entreprise) ─────────────────────────────────────────── */}
         {offreEntrepriseLabel && (
-          <div className="relative group">
-            {/** Button, das selbst Teil der “group” ist */}
+          <div
+            className="relative"
+            onMouseEnter={() => setIsOffreOpen(true)}
+            onMouseLeave={() => setIsOffreOpen(false)}
+          >
             <div className="h-10 bg-[#770E31] hover:bg-[#5a0f27] px-4 rounded flex items-center justify-center gap-2 cursor-pointer">
               <Image
                 src="/icons/entreprise.svg"
@@ -169,42 +206,27 @@ export default function Header({ locale, data }: HeaderProps) {
               />
               {offreEntrepriseLabel} ▼
             </div>
-            {/** Submenu, das nur im Hover-Fall sichtbar wird */}
-            <div
-              className="
-                absolute
-                top-full left-0
-                hidden group-hover:block
-                bg-[#770E31] text-base mt-0.5
-                rounded shadow-md z-50
-                min-w-max
-              "
-            >
-              {offreEntrepriseSub1Url && offreEntrepriseSub1Label && (
-                <Link
-                  href={offreEntrepriseSub1Url}
-                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
-                >
-                  {offreEntrepriseSub1Label}
-                </Link>
-              )}
-              {offreEntrepriseSub2Url && offreEntrepriseSub2Label && (
-                <Link
-                  href={offreEntrepriseSub2Url}
-                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
-                >
-                  {offreEntrepriseSub2Label}
-                </Link>
-              )}
-              {offreEntrepriseSub3Url && offreEntrepriseSub3Label && (
-                <Link
-                  href={offreEntrepriseSub3Url}
-                  className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap"
-                >
-                  {offreEntrepriseSub3Label}
-                </Link>
-              )}
-            </div>
+            {isOffreOpen && (
+              <div
+                className="absolute top-full left-0 bg-[#770E31] text-base mt-0.5 rounded shadow-md z-50 min-w-max"
+              >
+                {offreEntrepriseSub1Url && offreEntrepriseSub1Label && (
+                  <Link href={offreEntrepriseSub1Url} className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap">
+                    {offreEntrepriseSub1Label}
+                  </Link>
+                )}
+                {offreEntrepriseSub2Url && offreEntrepriseSub2Label && (
+                  <Link href={offreEntrepriseSub2Url} className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap">
+                    {offreEntrepriseSub2Label}
+                  </Link>
+                )}
+                {offreEntrepriseSub3Url && offreEntrepriseSub3Label && (
+                  <Link href={offreEntrepriseSub3Url} className="block px-4 py-2 hover:bg-[#5a0f27] whitespace-nowrap">
+                    {offreEntrepriseSub3Label}
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -227,7 +249,11 @@ export default function Header({ locale, data }: HeaderProps) {
 
         {/* ─── “Mon compte” Dropdown ─────────────────────────────────────────────────────── */}
         {monCompteLabel && (
-          <div className="relative group">
+          <div
+            className="relative"
+            onMouseEnter={() => setIsMonCompteOpen(true)}
+            onMouseLeave={() => setIsMonCompteOpen(false)}
+          >
             {/* Haupt-Link für “Mon compte” / “My Account” */}
             <Link
               href={
@@ -249,113 +275,115 @@ export default function Header({ locale, data }: HeaderProps) {
               </div>
             </Link>
             {/* Untermenü bleibt unverändert */}
-            <div
-              className="
-                absolute
-                top-full left-0
-                hidden group-hover:block
-                bg-[#770E31] text-base mt-0.5
-                rounded shadow-md z-50
-                min-w-max
-              "
-            >
-              {monCompteSub2Url && monCompteSub2Label && (
-                <Link
-                  href={monCompteSub2Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/certificate.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub2Label}
-                </Link>
-              )}
-              {monCompteSub3Url && monCompteSub3Label && (
-                <Link
-                  href={monCompteSub3Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/abonnement.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub3Label}
-                </Link>
-              )}
-              {monCompteSub4Url && monCompteSub4Label && (
-                <Link
-                  href={monCompteSub4Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/invoice.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub4Label}
-                </Link>
-              )}
-              {monCompteSub5Url && monCompteSub5Label && (
-                <Link
-                  href={monCompteSub5Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/paiement.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub5Label}
-                </Link>
-              )}
-              {monCompteSub6Url && monCompteSub6Label && (
-                <Link
-                  href={monCompteSub6Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/password.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub6Label}
-                </Link>
-              )}
-              {monCompteSub1Url && monCompteSub1Label && (
-                <Link
-                  href={monCompteSub1Url}
-                  className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
-                >
-                  <Image
-                    src="/icons/logout.svg"
-                    alt=""
-                    aria-hidden="true"
-                    width={24}
-                    height={24}
-                    unoptimized
-                  />
-                  {monCompteSub1Label}
-                </Link>
-              )}
-            </div>
+            {isMonCompteOpen && (
+              <div
+                className="
+                  absolute
+                  top-full left-0
+                  block
+                  bg-[#770E31] text-base mt-0.5
+                  rounded shadow-md z-50
+                  min-w-max
+                "
+              >
+                {monCompteSub2Url && monCompteSub2Label && (
+                  <Link
+                    href={monCompteSub2Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/certificate.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub2Label}
+                  </Link>
+                )}
+                {monCompteSub3Url && monCompteSub3Label && (
+                  <Link
+                    href={monCompteSub3Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/abonnement.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub3Label}
+                  </Link>
+                )}
+                {monCompteSub4Url && monCompteSub4Label && (
+                  <Link
+                    href={monCompteSub4Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/invoice.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub4Label}
+                  </Link>
+                )}
+                {monCompteSub5Url && monCompteSub5Label && (
+                  <Link
+                    href={monCompteSub5Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/paiement.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub5Label}
+                  </Link>
+                )}
+                {monCompteSub6Url && monCompteSub6Label && (
+                  <Link
+                    href={monCompteSub6Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/password.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub6Label}
+                  </Link>
+                )}
+                {monCompteSub1Url && monCompteSub1Label && (
+                  <Link
+                    href={monCompteSub1Url}
+                    className="text-white flex items-center gap-2 px-4 py-2 hover:bg-[#5a0f27]"
+                  >
+                    <Image
+                      src="/icons/logout.svg"
+                      alt=""
+                      aria-hidden="true"
+                      width={24}
+                      height={24}
+                      unoptimized
+                    />
+                    {monCompteSub1Label}
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         )}
 
@@ -378,10 +406,10 @@ export default function Header({ locale, data }: HeaderProps) {
 
         </nav>
         {/* Language switcher */}
-        <div className="hidden lg:flex items-center rounded-full p-1">
+        <div className="hidden xl:flex items-center rounded-full p-1 gap-1">
           <Link
             href={frUrl}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium transition-all ${
               locale === 'fr'
                 ? 'bg-white text-gray-900'
                 : 'text-white hover:bg-white/10'
@@ -394,13 +422,14 @@ export default function Header({ locale, data }: HeaderProps) {
               aria-hidden="true"
               width={18}
               height={18}
+              className="h-[24px] w-auto min-h-[24px] min-w-[32px]"
               unoptimized
             />
-            FR
+            <span className="hidden xl:inline">FR</span>
           </Link>
           <Link
             href={enUrl}
-            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium ${
+            className={`flex items-center gap-1 px-3 py-1 rounded-full text-base font-medium transition-all ${
               locale === 'en'
                 ? 'bg-white text-gray-900'
                 : 'text-white hover:bg-white/10'
@@ -413,23 +442,24 @@ export default function Header({ locale, data }: HeaderProps) {
               aria-hidden="true"
               width={18}
               height={18}
+              className="h-[24px] w-auto min-h-[24px] min-w-[32px]"
               unoptimized
             />
-            EN
+            <span className="hidden xl:inline">EN</span>
           </Link>
         </div>
-        {/* Theme toggle (moved to the right) */}
+        {/* Theme toggle button is now in mobile flex above; keep here for desktop */}
         <button
           aria-label="Toggle theme"
           onClick={toggleTheme}
-          className="p-2 rounded hover:bg-white/10 ml-0"
+          className="hidden xl:inline-flex p-2 rounded hover:bg-white/10 ml-0"
         >
           {isDark ? <Sun size={20} /> : <Moon size={20} />}
         </button>
       </div>
 
       {isMobileOpen && (
-        <div className="absolute top-full left-0 w-full bg-primary-950 z-20 md:hidden">
+        <div className="absolute top-full left-0 w-full z-50 block xl:hidden bg-[#062024] dark:bg-[#062024]">
           <nav className="flex flex-col space-y-1 p-4">
             {formationsUrl && formationsLabel && (
               <Link href={formationsUrl} className="py-2 px-3 text-white hover:bg-[#5a0f27] flex items-center gap-2 text-base">

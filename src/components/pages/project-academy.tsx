@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export interface ProjectAcademyPageProps {
   locale: string;
   data: {
@@ -58,7 +60,13 @@ export default function ProjectAcademyPage({ locale, data }: ProjectAcademyPageP
       <h1 className="text-4xl font-bold">{title}</h1>
       <h2 className="text-xl text-gray-600">{subtitle}</h2>
       {heroImg && (
-        <img src={heroImg} alt={title} className="w-full object-cover rounded-lg" />
+        <Image
+          src={heroImg}
+          alt={title}
+          width={1200}
+          height={600}
+          className="w-full object-cover rounded-lg"
+        />
       )}
       <div
         className="prose max-w-none dark:prose-invert"
