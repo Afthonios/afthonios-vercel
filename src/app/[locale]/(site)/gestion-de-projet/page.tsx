@@ -7,8 +7,7 @@ export function generateStaticParams() {
   return generateLocaleParams();
 }
 
-export default async function Page(props: Promise<{ params: { locale: string } }>) {
-  const { params } = await props;
+export default async function Page({ params }: { params: { locale: string } }) {
   const { locale } = params;
   const data = await getProjectAcademyPage();
   if (!data) return notFound();
