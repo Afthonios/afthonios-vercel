@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
   const host = request.headers.get('host');
-  const pathname = request.nextUrl.pathname;
 
   // Nur dann schützen, wenn wir auf staging.afthonios.com sind
   if (host === 'staging.afthonios.com') {
