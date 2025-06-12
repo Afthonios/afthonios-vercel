@@ -1,9 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+const PUBLIC_FILE = /\.(.*)$/;
+const DEFAULT_LOCALE = 'fr';
+
 export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
   const host = request.headers.get('host');
 
-  // Nur dann schützen, wenn wir auf staging.afthonios.com sind
+  // Redirect to default locale if path doesn't start with /fr or /en
+  if (
+    pathname === '/' ||
+    (!pathname.startsWith('/fr') &&
+      !pathname.startsWith('/en') &&
+      !PUBLIC_FILE.test(pathname))
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/${DEFAULT_LOCALE}${pathname}`;
+    return NextResponse.redirect(url);
+  }
+
+  // Password protection for staging.afthonios.com
   if (host === 'staging.afthonios.com') {
     const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
     const authHeader = request.headers.get('authorization');
@@ -11,15 +27,22 @@ export function middleware(request: NextRequest) {
     if (authHeader !== expected) {
       return new NextResponse(
         `<html><body>
-           <form method="get">
-             <input type="text" name="username" />
-             <input type="password" name="password" />
+           <form method="get" style="display: flex; flex-direction: column; gap: 10px; max-width: 300px; margin: 40px auto; font-family: sans-serif;">
+             <label>
+               Username
+               <input type="text" name="username" autocomplete="username" />
+             </label>
+             <label>
+               Password
+               <input type="password" name="password" autocomplete="current-password" />
+             </label>
+             <button type="submit">Login</button>
            </form>
          </body></html>`, {
           status: 401,
           headers: {
             'WWW-Authenticate': 'Basic realm="Afthonios Staging"',
-            'Content-Type': 'text/html'
+            'Content-Type': 'text/html',
           },
         });
     }
