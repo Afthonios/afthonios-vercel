@@ -1,17 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
+  const host = request.headers.get('host');
   const pathname = request.nextUrl.pathname;
 
-  // Wenn wir auf Root gehen, also nur "/"
-  if (pathname === '/') {
-    const locale = 'fr'; // oder 'en', je nach Standard
-    return NextResponse.redirect(new URL(`/${locale}`, request.url));
+  // Nur dann schützen, wenn wir auf staging.afthonios.com sind
+  if (host === 'staging.afthonios.com') {
+    const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
+    const authHeader = request.headers.get('authorization');
+
+    if (authHeader !== expected) {
+      return new NextResponse('Authentication required', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Afthonios Staging"',
+        },
+      });
+    }
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
