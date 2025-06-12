@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const PUBLIC_FILE = /\.(.*)$/;
 const DEFAULT_LOCALE = 'fr';
+const ALLOWED_LEARN_PATHS = [
+  '/fr/project-academy',
+  '/en/project-academy',
+  '/fr/new-offer',
+  '/en/new-offer',
+];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -45,6 +51,14 @@ export function middleware(request: NextRequest) {
             'Content-Type': 'text/html',
           },
         });
+    }
+  }
+
+  // Restrict pages on learn.afthonios.com
+  if (host === 'learn.afthonios.com') {
+    const currentPath = request.nextUrl.pathname;
+    if (!ALLOWED_LEARN_PATHS.includes(currentPath)) {
+      return NextResponse.redirect('https://afthonios.com');
     }
   }
 
