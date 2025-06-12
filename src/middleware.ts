@@ -9,12 +9,19 @@ export function middleware(request: NextRequest) {
     const authHeader = request.headers.get('authorization');
 
     if (authHeader !== expected) {
-      return new NextResponse('Authentication required', {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Afthonios Staging"',
-        },
-      });
+      return new NextResponse(
+        `<html><body>
+           <form method="get">
+             <input type="text" name="username" />
+             <input type="password" name="password" />
+           </form>
+         </body></html>`, {
+          status: 401,
+          headers: {
+            'WWW-Authenticate': 'Basic realm="Afthonios Staging"',
+            'Content-Type': 'text/html'
+          },
+        });
     }
   }
 
