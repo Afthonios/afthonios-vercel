@@ -1,10 +1,29 @@
 import createMiddleware from 'next-intl/middleware';
+import { NextRequest, NextResponse } from 'next/server';
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
   locales: ['fr', 'en'],
-  defaultLocale: 'fr'
+  defaultLocale: 'fr',
 });
 
+export default function middleware(request: NextRequest) {
+  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'staging') {
+    const authHeader = request.headers.get('authorization');
+    const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
+
+    if (authHeader !== expected) {
+      return new NextResponse('Authentication required', {
+        status: 401,
+        headers: {
+          'WWW-Authenticate': 'Basic realm="Staging Zone"',
+        },
+      });
+    }
+  }
+
+  return intlMiddleware(request);
+}
+
 export const config = {
-  matcher: ['/((?!api|_next|.*\\..*).*)']
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
