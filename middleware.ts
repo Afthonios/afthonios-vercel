@@ -7,18 +7,16 @@ const intlMiddleware = createMiddleware({
 });
 
 export default function middleware(request: NextRequest) {
-  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'staging') {
-    const authHeader = request.headers.get('authorization');
-    const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
+  const authHeader = request.headers.get('authorization');
+  const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
 
-    if (authHeader !== expected) {
-      return new NextResponse('Authentication required', {
-        status: 401,
-        headers: {
-          'WWW-Authenticate': 'Basic realm="Staging Zone"',
-        },
-      });
-    }
+  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'staging' && authHeader !== expected) {
+    return new NextResponse('Authentication required', {
+      status: 401,
+      headers: {
+        'WWW-Authenticate': 'Basic realm="Staging Zone"',
+      },
+    });
   }
 
   return intlMiddleware(request);
