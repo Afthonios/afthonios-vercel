@@ -10,7 +10,7 @@ export default function middleware(request: NextRequest) {
   const authHeader = request.headers.get('authorization');
   const expected = 'Basic ' + Buffer.from('afthonios:xyHwoc-8rovpy-fusgof').toString('base64');
 
-  if (process.env.NEXT_PUBLIC_ENVIRONMENT === 'production' && authHeader !== expected) {
+  if (request.headers.get('host')?.startsWith('staging.') && authHeader !== expected) {
     return new NextResponse('Authentication required', {
       status: 401,
       headers: {
